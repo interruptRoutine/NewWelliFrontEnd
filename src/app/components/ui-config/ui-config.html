@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Settings - Wellbeing App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body class="page-body">
+
+<div class="page-background">
+  <div class="gradient-blur-1"></div>
+  <div class="gradient-blur-2"></div>
+</div>
+
+<div class="page-wrapper">
+  <div class="page-content">
+    <main class="main-content">
+      <div class="container">
+
+        <div class="page-header">
+          <div class="header-left">
+            <button routerLink="/dashboard" class="back-button">
+              <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <p class="page-title">Settings</p>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+
+          <div class="profile-column">
+            <div class="card glassmorphism">
+              <h2 class="card-title">My Profile</h2>
+              <div class="profile-form-container">
+
+                <div class="profile-header">
+                  <div class="avatar-container">
+                    <div class="avatar avatar-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBZJXYbCFVdGrWmuNikFBCcBh_cG9IRWbM5hWiMe_NWlooM_sPfVogA_ugHJucELuFK933OJ_M1_5K7Bsq5RnrP1c8x5jwi3J9Bcm1su9WX10-Jy75O5uGkoFNudHvqA1X2sVKtmLbgfUAyPPtfPhxu7YG-w3_lI_1M5nuGsn6sKvvIsx6rmbDiW01iVkGlDhe9ccmeJGm1xJmI3xxW2M7x5q7nRoTAklWNWc2zF9SoJsxe3ZN8hzsBEI0RWc-1lgfKjhgTqY4ujjA");'></div>
+                    <button class="edit-avatar-button">
+                      <span class="material-symbols-outlined">edit</span>
+                    </button>
+                  </div>
+                  <div class="profile-header-details">
+                    <p class="profile-name">Amelia</p>
+                    <p class="profile-email">ameliar&#64;email.com</p>
+                  </div>
+                </div>
+
+                <div class="form-grid">
+                  <label class="form-group">
+                    <p class="form-label">Nome</p>
+                    <input class="form-input form-input-custom" value="Amelia" />
+                  </label>
+                  <label class="form-group">
+                    <p class="form-label">Cognome</p>
+                    <input class="form-input form-input-custom" value="Amelia" />
+                  </label>
+                  <label class="form-group">
+                    <p class="form-label">Email Address</p>
+                    <input class="form-input form-input-custom" value="ameliar@email.com" />
+                  </label>
+                  <label class="form-group">
+                    <p class="form-label">Password</p>
+                    <div class="password-input-wrapper">
+                      <input class="form-input form-input-custom" type="password" value="••••••••" />
+                      <button class="password-change-button">Change Password</button>
+                    </div>
+                  </label>
+                  <label class="form-group">
+                    <p class="form-label">Gender</p>
+                    <input class="form-input form-input-custom" value="Female" />
+                  </label>
+                  <label class="form-group">
+                    <p class="form-label">Date of Birth</p>
+                    <input class="form-input form-input-custom" type="date" value="1990-01-01" />
+                  </label>
+                  <label class="form-group">
+                    <p class="form-label">City</p>
+                    <input class="form-input form-input-custom" value="San Francisco" />
+                  </label>
+                </div>
+
+                <div class="form-actions">
+                  <button class="button button-primary">Save Changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-column">
+            <div class="card glassmorphism">
+              <h2 class="card-title" style="padding-bottom: 0.5rem;">Customize Your Dashboard</h2>
+              <p class="card-subtitle">Show or hide widgets on your main screen.</p>
+              <div class="toggle-list">
+
+                <div class="toggle-item">
+                  <span class="toggle-label">Dark Mode</span>
+                  <label class="toggle-switch">
+                    <input class="toggle-input" type="checkbox" value="" />
+                    <div class="toggle-bg"></div>
+                  </label>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="toggle-item">
+                  <div class="toggle-label-with-icon">
+                    <span class="toggle-label">Horoscope</span>
+                    <span class="material-symbols-outlined toggle-info-icon">info</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input checked class="toggle-input" type="checkbox" value="" />
+                    <div class="toggle-bg"></div>
+                  </label>
+                </div>
+                <div class="toggle-item">
+                  <div class="toggle-label-with-icon">
+                    <span class="toggle-label">Weather</span>
+                    <span class="material-symbols-outlined toggle-info-icon">info</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input checked class="toggle-input" type="checkbox" value="" />
+                    <div class="toggle-bg"></div>
+                  </label>
+                </div>
+                <div class="toggle-item">
+                  <div class="toggle-label-with-icon">
+                    <span class="toggle-label">Personalized Playlist</span>
+                    <span class="material-symbols-outlined toggle-info-icon">info</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input class="toggle-input" type="checkbox" value="" />
+                    <div class="toggle-bg"></div>
+                  </label>
+                </div>
+                <div class="toggle-item">
+                  <div class="toggle-label-with-icon">
+                    <span class="toggle-label">Calendar Reminders</span>
+                    <span class="material-symbols-outlined toggle-info-icon">info</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input checked class="toggle-input" type="checkbox" value="" />
+                    <div class="toggle-bg"></div>
+                  </label>
+                </div>
+                <div class="toggle-item">
+                  <div class="toggle-label-with-icon">
+                    <span class="toggle-label">Health Section</span>
+                    <span class="material-symbols-outlined toggle-info-icon">info</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input checked class="toggle-input" type="checkbox" value="" />
+                    <div class="toggle-bg"></div>
+                  </label>
+                </div>
+                <div class="toggle-item">
+                  <div class="toggle-label-with-icon">
+                    <span class="toggle-label">AI Chat</span>
+                    <span class="material-symbols-outlined toggle-info-icon">info</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input class="toggle-input" type="checkbox" value="" />
+                    <div class="toggle-bg"></div>
+                  </label>
+                </div>
+                <div class="toggle-item">
+                  <div class="toggle-label-with-icon">
+                    <span class="toggle-label">News</span>
+                    <span class="material-symbols-outlined toggle-info-icon">info</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input class="toggle-input" type="checkbox" value="" />
+                    <div class="toggle-bg"></div>
+                  </label>
+                </div>
+                <div class="toggle-item">
+                  <div class="toggle-label-with-icon">
+                    <span class="toggle-label">Recipe Book</span>
+                    <span class="material-symbols-outlined toggle-info-icon">info</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input checked class="toggle-input" type="checkbox" value="" />
+                    <div class="toggle-bg"></div>
+                  </label>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+</body>
+</html>
