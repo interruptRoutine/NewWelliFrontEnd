@@ -7,7 +7,7 @@
   display: flow-root;
 
   /* 3. Applica il tuo sfondo */
-  /*background-image: url('../../../assets/images/aurora-borealis-landscape-sea.jpg');*/
+  background-image: url('/assets/images/aurora-borealis-landscape-sea.jpg') !important;
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* Mantiene lo sfondo fisso */

@@ -41,7 +41,7 @@ export class CalendarViewComponent implements AfterViewInit {
 
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
-  // 1. DICHIARA LA VARIABILE CHE MANCAVA
+
   private calendarApi!: CalendarApi;
 
   calendarOptions: CalendarOptions;
