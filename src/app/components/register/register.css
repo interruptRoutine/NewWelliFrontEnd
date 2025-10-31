@@ -148,12 +148,12 @@ label {
 
 input,
 select {
-  padding: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem; /* 1rem di default per gli input normali */
+
   border-radius: 0.5rem;
-  border: 1px solid rgba(207, 231, 227, 0.5);
-  font-size: 1rem;
-  outline: none;
-  width: 100%; /* Aggiunto per allineare tutti i campi */
 }
 
 input::placeholder {
@@ -197,19 +197,9 @@ select:focus {
   position: relative;
 }
 
-.select-wrapper select {
+.select-wrapper select
+{
   width: 100%;
-  appearance: none;
-  padding-right: 2.5rem;
-}
-
-.select-wrapper .expand {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: rgba(76, 154, 141, 0.8);
 }
 
 .checkbox-group {
@@ -278,3 +268,136 @@ input[type="checkbox"] {
   width: 268px;
 }
 
+/* Adatta la card di registrazione per contenuti più lunghi */
+.register-card {
+  max-width: 500px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+/* Stile per i messaggi di errore di validazione */
+.error-text {
+  color: #D8000C; /* Rosso errore */
+  font-size: 0.875rem;
+  margin-top: 5px;
+  /* Rimuove l'allineamento al centro dai tag <p> */
+  text-align: left;
+}
+
+/* Stile per il contenitore dell'errore globale del server */
+.error-message-container {
+  color: #D8000C;
+  background-color: #FFD2D2;
+  border: 1px solid #D8000C;
+  border-radius: 0.5rem; /* 8px */
+  padding: 1rem; /* 16px */
+  margin-bottom: 1.25rem; /* Spazio prima del pulsante */
+  width: 100%;
+}
+.error-message-container p {
+  margin: 0;
+  text-align: center;
+}
+
+/* Evidenzia i campi non validi (dopo che l'utente li ha toccati) */
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #D8000C;
+}
+input.ng-invalid.ng-touched:focus,
+select.ng-invalid.ng-touched:focus {
+  border-color: #D8000C;
+  box-shadow: 0 0 0 2px rgba(216, 0, 12, 0.5);
+}
+
+
+/* Stili per l'autocomplete delle città */
+.autocomplete-container {
+  position: relative;
+  width: 100%;
+}
+
+.city-dropdown {
+  position: absolute;
+  top: 100%; /* Sotto l'input */
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(207, 231, 227, 0.5);
+  border-top: none;
+  border-radius: 0 0 0.5rem 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+  /* Logica per nascondere/mostrare */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.city-dropdown.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.city-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.city-item:hover {
+  background-color: rgba(19, 236, 200, 0.2);
+}
+
+/* Rende il nome della città in grassetto */
+.city-item .city-name {
+  font-weight: 600;
+}
+
+/* Rende il nome della nazione più chiaro */
+.city-item .city-country {
+  color: #555;
+  font-size: 0.9em;
+}
+
+/* Stile per l'input quando l'utente ha selezionato una città */
+/* (Opzionale, ma migliora la UI) */
+input[formControlName="city"].ng-valid.ng-dirty {
+  border-color: var(--primary);
+}
+
+/* Assicurati che gli input e i select abbiano uno stile coerente */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+  /* ... (riutilizza gli stili che hai in login.css per gli input) ... */
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  box-sizing: border-box; /* Importante! */
+}
+
+select {
+  /* Stile per farlo sembrare meno "nativo" */
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 1em;
+}
+
+/* Bordo rosso per input non validi (dopo che sono stati toccati) */
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #D8000C;
+}

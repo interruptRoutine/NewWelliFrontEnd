@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" class="light">
-
-<head>
-  <title>Create Your Account - Wellbeing App</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index,follow" />
-  <meta name="generator" content="GrapesJS Studio" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-</head>
-
-<body>
 <div id="ifyjs" class="container">
   <div id="ilywr" class="background-blur">
     <div id="i4klw" class="blur-circle circle1"></div>
@@ -21,116 +7,142 @@
   <div id="iyefz" class="card">
     <div class="card-content" id="i02ij">
       <div class="logo-title" id="io9ry"></div>
-      <img src="https://cdn.grapesjs.com/workspaces/cmh3947g9166pduapyi3l4ad2/assets/91b5c3e3-0436-4d9b-8174-c19a50abd42a__wellilogotransparent1.png" id="io6lg" />
+
+      <img src="assets/images/welli-logo.png" id="io6lg" alt="Welli Logo" />
+
       <h2 id="i58sk">Crea un account</h2>
       <p id="iremr">Unisciti alla nostra community per iniziare il tuo percorso verso il benessere.</p>
-      <form method="get" class="form" id="idomj">
+
+      <form [formGroup]="registerForm" (ngSubmit)="handleRegister()" class="form" id="idomj" novalidate>
+
         <div class="row" id="i9uz8">
           <div class="form-group" id="icktg">
             <label for="name" id="iqwxo">Nome</label>
-            <input type="text" placeholder="Inserisci il tuo nome" id="name" />
+            <input type="text" placeholder="Inserisci il tuo nome" id="name" formControlName="name" />
+            <div *ngIf="this.f['name'].invalid && this.f['name'].touched" class="error-text">
+              Il nome è obbligatorio.
+            </div>
           </div>
           <div class="form-group" id="i2o7k">
             <label for="surname" id="i7z4z">Cognome</label>
-            <input type="text" placeholder="Inserisci il tuo cognome" id="surname" />
+            <input type="text" placeholder="Inserisci il tuo cognome" id="surname" formControlName="surname" />
+            <div *ngIf="this.f['surname'].invalid && this.f['surname'].touched" class="error-text">
+              Il cognome è obbligatorio.
+            </div>
           </div>
         </div>
+
         <div class="form-group" id="i6eio">
           <label for="email" id="i9cjc">Indirizzo Email </label>
-          <input type="email" placeholder="Inserisci la tua email" id="email" />
+          <input type="email" placeholder="Inserisci la tua email" id="email" formControlName="email" />
+          <div *ngIf="this.f['email'].invalid && (this.f['email'].dirty || this.f['email'].touched)" class="error-text">
+            <span *ngIf="this.f['email'].errors?.['required']">L'email è obbligatoria.</span>
+            <span *ngIf="this.f['email'].errors?.['email']">Inserisci un'email valida.</span>
+            <span *ngIf="this.f['email'].errors?.['inUse']">Questa email è già utilizzata.</span>
+          </div>
         </div>
+
         <div class="form-group" id="ioeoe">
           <label for="password" id="igm64">Crea Password</label>
           <div class="input-with-btn" id="ivcqx">
-            <input type="password" placeholder="Inserisci la tua password" id="password" />
-            <button type="button" id="iczue">
-              <span id="i0j3c" class="material-symbols-outlined">visibility_off</span>
+            <input [type]="passwordFieldType" placeholder="Inserisci la tua password" id="password" formControlName="password" />
+            <button type="button" id="iczue" (click)="togglePasswordVisibility('password')">
+              <span id="i0j3c" class="material-symbols-outlined">
+                {{ passwordFieldType === 'password' ? 'visibility_off' : 'visibility' }}
+              </span>
             </button>
           </div>
+          <div *ngIf="this.f['password'].invalid && (this.f['password'].dirty || this.f['password'].touched)" class="error-text">
+            <span *ngIf="this.f['password'].errors?.['required']">La password è obbligatoria.</span>
+            <span *ngIf="this.f['password'].errors?.['pattern'] || this.f['password'].errors?.['backendInvalid']">
+              Min. 8 caratteri, 1 maiuscola, 1 minuscola, 1 numero, 1 carattere speciale (&#64;$!%*?&-).
+            </span>
+          </div>
         </div>
+
         <div class="form-group" id="iaibe">
           <label for="repeat-password" id="iou7z">Ripeti Password</label>
           <div class="input-with-btn" id="iilsj">
-            <input type="password" placeholder="Ripeti la tua password" id="repeat-password" />
-            <button type="button" id="ijq9u">
-              <span id="ijmjd" class="material-symbols-outlined">visibility_off</span>
+            <input [type]="confirmPasswordFieldType" placeholder="Ripeti la tua password" id="repeat-password" formControlName="confirmPassword" />
+            <button type="button" id="ijq9u" (click)="togglePasswordVisibility('confirmPassword')">
+              <span id="ijmjd" class="material-symbols-outlined">
+                {{ confirmPasswordFieldType === 'password' ? 'visibility_off' : 'visibility' }}
+              </span>
             </button>
           </div>
+          <div *ngIf="registerForm.errors?.['passwordMismatch'] && this.f['confirmPassword'].touched" class="error-text">
+            Le password non coincidono.
+          </div>
         </div>
+
         <div class="row" id="ij8yl">
           <div class="form-group" id="i1l9c">
             <label for="gender" id="ib2ye">Genere</label>
             <div class="select-wrapper" id="icqr7">
-              <select type="text" id="gender">
-                <option id="itnpj">Seleziona Genere</option>
-                <option id="i59we">Maschio</option>
-                <option id="i19zf">Femmina</option>
-                <option id="id3nj">Non-binario</option>
-                <option id="i4r5i">Altro</option>
+              <select id="gender" formControlName="gender">
+                <option id="itnpj" value="" disabled>Seleziona Genere</option>
+                <option id="i59we" value="MALE">Maschio</option>
+                <option id="i19zf" value="FEMALE">Femmina</option>
+                <option id="id3nj" value="NON_BINARY">Non-binario</option>
+                <option id="i4r5i" value="OTHER">Altro</option>
               </select>
-              <span class="material-symbols-outlined expand" id="iockz">expand_more</span>
+            </div>
+            <div *ngIf="this.f['gender'].invalid && this.f['gender'].touched" class="error-text">
+              Il genere è obbligatorio.
             </div>
           </div>
+
           <div id="insg6" class="form-group">
             <label for="dob" id="iff92">Data di nascita</label>
-            <input type="date" id="dob" />
+            <input type="date" id="dob" formControlName="dob" />
+            <div *ngIf="this.f['dob'].invalid && this.f['dob'].touched" class="error-text">
+              <span *ngIf="this.f['dob'].errors?.['required']">Data obbligatoria.</span>
+              <span *ngIf="this.f['dob'].errors?.['underAge']">Devi avere almeno 18 anni.</span>
+            </div>
           </div>
         </div>
+
         <div class="form-group" id="ine22">
           <label for="city" id="ikofs">Città</label>
-          <input type="text" placeholder="Aggiungi la tua città" id="city" />
-        </div>
-        <div id="i181c" class="checkbox-group">
-          <div class="checkbox" id="ip2th">
-            <input type="checkbox" id="remember-me" />
-            <label for="remember-me" id="iao9n">Ricordami</label>
+          <div class="autocomplete-container">
+            <input type="text" placeholder="Inizia a scrivere (es. Rome...)" id="city"
+                   formControlName="city"
+                   autocomplete="off"
+                   (click)="resetCityFilter()" />
+
+            <div class="city-dropdown" *ngIf="(filteredCities$ | async) as cities" [class.visible]="cities.length > 0">
+
+              <div *ngFor="let city of cities" class="city-item" (mousedown)="selectCity(city)">
+                <span class.city-name>{{ city.name }}</span>
+                <span class="city-country">, {{ city.country }}</span>
+              </div>
+
+            </div>
           </div>
-          <p id="i90ys">Creando un account, accetti i nostri <a href="#" id="iq62f">Terms &amp; Privacy</a>.</p>
+          <div *ngIf="this.f['city'].invalid && this.f['city'].touched" class="error-text">
+            La città è obbligatoria.
+          </div>
         </div>
+
+        <div id="i181c" class="checkbox-group">
+          <div class="checkbox">
+            <input type="checkbox" id="terms" formControlName="terms" />
+            <label for="terms" id="i90ys">Creando un account, accetti i nostri <a href="/privacy" id="iq62f" target="_blank">Terms &amp; Privacy</a>.</label>
+          </div>
+          <div *ngIf="this.f['terms'].invalid && this.f['terms'].touched" class="error-text">
+            Devi accettare i termini e la privacy.
+          </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-message-container">
+          <p class="error-message-text">{{ errorMessage }}</p>
+        </div>
+
         <button type="submit" id="iledg" class="submit-btn">Crea Account</button>
-        <p id="is7h1" class="signin">Non hai un account? <a href="#" id="ij1x7l">Registrati</a>
+
+        <p id="is7h1" class="signin">Hai già un account? <a routerLink="/login" id="ij1x7l">Accedi</a>
         </p>
       </form>
     </div>
   </div>
 </div>
-<script id="inf4qn">
-  /**
-   * Funzione per il toggle di visibilità per un campo password specifico.
-   * @param {string} inputId - ID del campo input password.
-   * @param {string} buttonId - ID del pulsante di toggle.
-   * @param {string} iconId - ID dell'elemento <span> dell'icona (material-symbols-outlined).
-   */
-  function setupPasswordToggle(inputId, buttonId, iconId) {
-    const passwordInput = document.getElementById(inputId);
-    const toggleButton = document.getElementById(buttonId);
-    const toggleIcon = document.getElementById(iconId);
-
-    if (!passwordInput || !toggleButton || !toggleIcon) {
-      console.error(`Uno o più elementi con ID ${inputId}, ${buttonId}, ${iconId} non sono stati trovati.`);
-      return;
-    }
-
-    toggleButton.addEventListener('click', () => {
-      // 1. Inverte il tipo: password <-> text
-      const newType = passwordInput.type === 'password' ? 'text' : 'password';
-      passwordInput.type = newType;
-
-      // 2. Inverte l'icona: visibility_off <-> visibility
-      const newIcon = newType === 'password' ? 'visibility_off' : 'visibility';
-      toggleIcon.textContent = newIcon;
-    });
-  }
-
-  // Esegui la funzione di setup per entrambi i campi password
-  document.addEventListener('DOMContentLoaded', () => {
-    // Campo 'Crea Password'
-    setupPasswordToggle('password', 'iczue', 'i0j3c');
-
-    // Campo 'Ripeti Password'
-    setupPasswordToggle('repeat-password', 'ijq9u', 'ijmjd');
-  });
-</script>
-</body>
-
-</html>

@@ -23,7 +23,6 @@ export const routes: Routes = [
     // Carica pigramente le rotte del calendario
     loadChildren: () => import('./components/calendar/calendar.routes')
       .then(r => r.CALENDAR_ROUTES)
-    // Aggiungi qui una guardia (es. canActivate: [authGuard]) se l'hai
   },
   {path: "mood", component: MoodComponent},
 

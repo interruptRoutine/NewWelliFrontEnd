@@ -24,6 +24,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 // Import dei nostri servizi e componenti
 import { EventDataService, EventDto } from '../event-data.service';
 import { EventModalComponent } from '../event-modal/event-modal.component';
+import {RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-calendar-view',
@@ -31,7 +32,8 @@ import { EventModalComponent } from '../event-modal/event-modal.component';
   imports: [
     CommonModule,
     FullCalendarModule,
-    MatDialogModule
+    MatDialogModule,
+    RouterModule
   ],
   templateUrl: './calendar-view.component.html',
   styleUrls: ['./calendar-view.component.css']
