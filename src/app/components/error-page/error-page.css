@@ -122,7 +122,7 @@ body.page-body {
 
 /* Sfondo specifico per la pagina di errore */
 body.error-bg-image {
-  background-image: url('https://cdn.discordapp.com/attachments/1428660525092306944/1433153137937616896/errorDog.png?ex=6903a75e&is=690255de&hm=8d75d848d5e3191e738f0d5459981192b220aeb92532d47bf7e190f57a85a9c9&');
+  background-image: url('./assets/images/error-background.png');
   background-size: cover; /* Copre l'intera area */
   background-position: center; /* Centra l'immagine */
   background-repeat: no-repeat;
@@ -139,7 +139,6 @@ body.error-bg-image {
 .dark body.error-bg-image {
   background-color: #10221f;
 }
-
 
 .gradient-blur-1 {
   position: absolute;
