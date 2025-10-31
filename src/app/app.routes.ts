@@ -7,6 +7,7 @@ import { ErrorPage } from './components/error-page/error-page';
 import { News } from './components/dashboard/news/news';
 import {UiConfig} from './components/ui-config/ui-config';
 import {TermsPrivacy} from './components/terms-privacy/terms-privacy';
+import {MoodComponent} from './components/dashboard/mood/mood.component';
 
 
 export const routes: Routes = [
@@ -24,6 +25,7 @@ export const routes: Routes = [
       .then(r => r.CALENDAR_ROUTES)
     // Aggiungi qui una guardia (es. canActivate: [authGuard]) se l'hai
   },
+  {path: "mood", component: MoodComponent},
 
   { path: "**", component: ErrorPage}
 ];

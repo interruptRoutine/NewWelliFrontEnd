@@ -598,7 +598,8 @@ body.dark .tip-day p {
   }
 
   .grid-layout {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 4fr ;
+    margin-bottom: 100px;
   }
 }
 
@@ -607,4 +608,112 @@ body.dark .tip-day p {
     padding: 3rem;
     undefined: undefined;
   }
+}
+
+/* Stili per i nuovi filtri aggiunti */
+.news-filters {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: var(--card-bg-color, #f9f9f9); /* Usa variabili CSS se le hai */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.search-bar {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 6px;
+  box-sizing: border-box; /* Importante per il padding */
+}
+
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.category-buttons button {
+  padding: 8px 15px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--primary-color, rgba(0, 212, 161, 1));
+  background-color: transparent;
+  border: 1px solid var(--primary-color, rgba(0, 212, 161, 1));
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-buttons button:hover {
+  background-color: var(--primary-color, rgba(0, 212, 161, 1));
+  color: #fff;
+}
+
+/* Stili per il layout delle card (dovresti già averli, ma li aggiungo per sicurezza) */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card-item-link {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* Fa sì che l'anchor occupi lo spazio della card */
+}
+
+.card-item {
+  background-color: var(--card-item-bg, #fff);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+}
+
+.card-item:hover {
+  transform: translateY(-5px);
+}
+
+.card-image {
+  width: 100%;
+  height: 150px; /* Altezza fissa per l'immagine */
+  background-size: cover;
+  background-position: center;
+  background-color: #eee; /* Colore di fallback */
+}
+
+.card-item h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 15px;
+  /* Limita il titolo a 2 righe */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 2.4em; /* (font-size * line-height) * 2 */
+}
+
+.card-item p {
+  font-size: 14px;
+  margin: 0 15px 15px 15px;
+  /* Limita la descrizione a 3 righe */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 3.6em; /* (font-size * line-height) * 3 */
+}
+
+.loader {
+  padding: 30px;
+  text-align: center;
+  font-size: 16px;
+  color: #888;
 }
