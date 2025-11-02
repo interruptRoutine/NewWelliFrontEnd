@@ -163,13 +163,23 @@ body.dark .theme-toggle {
   gap: 1.5rem;
 }
 
+/* Stili copiati da meteo.css per uniformare tutte le card */
 .card {
-  background-color: var(--surface-light);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: background 0.3s;
+  background-color: var(--surface-color); /* meteo.css usa var(--surface-color) */
+  border-radius: 1.25rem; /* 20px (da meteo.css) */
+  padding: 1.5rem; /* 24px (da meteo.css) */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* (da meteo.css) */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* 16px (da meteo.css) */
+  transition: all 0.3s ease; /* (da meteo.css) */
 }
+
+.card:hover {
+  transform: translateY(-4px); /* (da meteo.css) */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08); /* (da meteo.css) */
+}
+
 
 body.dark .card {
   background-color: var(--surface-dark);
@@ -686,9 +696,11 @@ body.dark .tip-day p {
 /* STILI AGGIUNTIVI PER LA CARD "IMPEGNI DI OGGI"
 */
 
+/* --- MODIFICA QUI --- */
 /* Card principale */
 .today-reminder-card {
-  height: 100%;
+  /* height: 100%; */ /* RIMOSSO */
+  max-height: 250px; /* AGGIUNTO: Limita l'altezza della card */
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -696,6 +708,8 @@ body.dark .tip-day p {
   border-radius: 12px;
   box-shadow: var(--shadow-card);
 }
+/* --- FINE MODIFICA --- */
+
 
 .today-reminder-card h2 {
   font-size: 1.1rem;
@@ -714,7 +728,6 @@ body.dark .tip-day p {
   overflow: hidden; /* Mantiene i bordi arrotondati */
 }
 
-/* --- MODIFICA QUI --- */
 /* Data completa (non più solo un numero) */
 .today-number {
   font-size: 1rem; /* Ridotto per la data lunga */
@@ -726,7 +739,6 @@ body.dark .tip-day p {
   background-color: var(--color-card);
   text-transform: capitalize; /* Prima lettera del mese maiuscola */
 }
-/* --- FINE MODIFICA --- */
 
 
 /* Contenitore della lista eventi */
