@@ -20,6 +20,12 @@ import itLocale from '@fullcalendar/core/locales/it';
 
 // Import di Angular Material per i Modal
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+// =========================================================================
+// <-- AGGIUNTA PER TASTO HOME: Import per il pulsante e la navigazione
+// =========================================================================
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 // Import dei nostri servizi e componenti
 import { EventDataService, EventDto } from '../event-data.service';
@@ -33,7 +39,12 @@ import {RouterModule} from '@angular/router';
     CommonModule,
     FullCalendarModule,
     MatDialogModule,
-    RouterModule
+    RouterModule,
+    // =================================================================
+    // <-- AGGIUNTA PER TASTO HOME: Moduli per far funzionare il pulsante
+    // =================================================================
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './calendar-view.component.html',
   styleUrls: ['./calendar-view.component.css']
@@ -50,7 +61,8 @@ export class CalendarViewComponent implements AfterViewInit {
 
   constructor(
     private eventService: EventDataService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router // <-- AGGIUNTA PER TASTO HOME: Iniezione del Router
   ) {
     this.calendarOptions = {
       // ... (tutte le tue opzioni plugins, headerToolbar, ecc.) ...
@@ -88,6 +100,14 @@ export class CalendarViewComponent implements AfterViewInit {
       locale: itLocale
     };
   }
+
+  // =======================================================================
+  // <-- AGGIUNTA PER TASTO HOME: Funzione per tornare alla Home
+  // =======================================================================
+  goToHome(): void {
+    this.router.navigate(['/dashboard']);
+  }
+  // =======================================================================
 
   // 2. INIZIALIZZA L'API DOPO CHE LA VISTA È PRONTA
   ngAfterViewInit() {

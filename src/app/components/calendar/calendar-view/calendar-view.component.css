@@ -1,4 +1,6 @@
 :host {
+  position: relative; /* <-- AGGIUNTA PER TASTO HOME: Permette di posizionare il pulsante */
+
   /* 1. Fagli occupare spazio */
 
   /* 2. Imposta l'altezza minima pari al 100% dell'altezza
@@ -14,6 +16,42 @@
 
   /* 4. Applica il font solo a questo componente */
 }
+/* ==================================================================== */
+/* <-- MODIFICA: Stile per il pulsante Home (cerchio grigio chiaro)     */
+/* ==================================================================== */
+.home-button-container {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1000;
+}
+
+.custom-home-button {
+  /* Forma e dimensioni */
+  width: 44px;
+  height: 44px;
+  border-radius: 50%; /* Questo lo rende un cerchio perfetto */
+
+  /* Colori e stile come da foto */
+  background-color: #f0f0f0; /* Sfondo grigio chiaro */
+  color: #333; /* Icona della freccia scura */
+  border: none; /* Nessun bordo */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Ombra leggera per dare profondità */
+
+  /* Allineamento icona e altro */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.custom-home-button:hover {
+  background-color: #e0e0e0; /* Sfondo leggermente più scuro quando ci passi sopra */
+}
+/* ==================================================================== */
+
 /* Stile per il contenitore del calendario */
 .calendar-container {
 

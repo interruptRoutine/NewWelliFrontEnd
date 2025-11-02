@@ -1,4 +1,14 @@
+<!-- ================================================================== -->
+<!-- <-- AGGIUNTA: HTML del pulsante Home (con classe per stile custom) -->
+<!-- ================================================================== -->
+<div class="home-button-container">
+  <button aria-label="Torna alla Home" (click)="goToHome()" class="custom-home-button">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
+
+<!-- ================================================================== -->
+<!-- Il tuo codice originale per il calendario non cambia -->
 <div class="calendar-container">
   <full-calendar #calendar [options]="calendarOptions"></full-calendar>
 </div>
-
