@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EventInput } from '@fullcalendar/core';
 
-// Interfaccia che mappa il tuo EventDto.java
 export interface EventDto {
   id?: string;
   title: string;
@@ -28,20 +27,25 @@ export interface BackendEvent extends EventDto {
 })
 export class EventDataService {
 
-  private apiUrl = '/api/events'; // Usa il proxy
+  private apiUrl = '/api/events';
 
   constructor(private http: HttpClient) { }
 
-  // Funzione chiamata da FullCalendar
+
+  getEventsForRange(start: string, end: string): Observable<BackendEvent[]> {
+    const params = new HttpParams()
+      .set('start', start)
+      .set('end', end);
+
+    return this.http.get<BackendEvent[]>(this.apiUrl, { params });
+  }
+
+
   loadEvents = (fetchInfo: any,
                 successCallback: (events: EventInput[]) => void,
                 failureCallback: (error: any) => void): void => {
 
-    const params = new HttpParams()
-      .set('start', fetchInfo.startStr)
-      .set('end', fetchInfo.endStr);
-
-    this.http.get<BackendEvent[]>(this.apiUrl, { params })
+    this.getEventsForRange(fetchInfo.startStr, fetchInfo.endStr)
       .pipe(
         map(backendEvents => this.mapBackendToFullCalendar(backendEvents))
       )
@@ -51,14 +55,13 @@ export class EventDataService {
       );
   }
 
-  // Il "TRADUTTORE" (Backend -> FullCalendar)
   private mapBackendToFullCalendar(events: BackendEvent[]): EventInput[] {
-    console.log('Backend Events:', events); // <-- AGGIUNGI QUESTO LOG
+    console.log('Backend Events:', events);
     const mappedEvents = events.map(e => ({
       id: e.id,
       title: e.title,
-      start: e.start, // Già in formato ISO
-      end: e.end,     // Già in formato ISO
+      start: e.start,
+      end: e.end,
       allDay: e.isAllDay,
       color: e.color,
       rrule: e.recurrenceRule ? e.recurrenceRule : undefined,
@@ -72,11 +75,10 @@ export class EventDataService {
       backgroundColor: e.showAs === 'FREE' ? '#c8e6c9' : e.color,
       borderColor: e.showAs === 'FREE' ? '#4CAF50' : e.color,
     }));
-    console.log('Mapped FullCalendar Events:', mappedEvents); // <-- AGGIUNGI QUESTO LOG
+    console.log('Mapped FullCalendar Events:', mappedEvents);
     return mappedEvents;
   }
 
-  // Funzioni CRUD chiamate dal Modal
   createEvent(dto: EventDto): Observable<BackendEvent> {
     return this.http.post<BackendEvent>(this.apiUrl, dto);
   }

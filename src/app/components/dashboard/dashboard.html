@@ -109,23 +109,40 @@
         </div>
       </section>
     </div>
+
     <div id="i9lw1h" class="side-section">
-      <section id="iiwvjw" class="card">
-        <h2 id="iejz34">Reminder di oggi</h2>
-        <div id="ics1ig" class="reminder">
-          <span id="ifqgcb" class="dot primary"></span>
-          <div id="ib59vp"></div>
-        </div>
-        <div id="ioil6w" class="reminder">
-          <span id="icntdf" class="dot aqua"></span>
-        </div>
-        <div id="ivz5vf" class="reminder">
-          <span id="inqsq2" class="dot aqua"></span>
-          <div id="iobguw"></div>
+
+      <section id="iiwvjw" class="card today-reminder-card">
+        <h2 id="iejz34">Impegni di oggi</h2>
+
+        <div class="today-cell">
+
+          <div class="today-number">
+            {{ todayDate | date: 'd MMMM y' }}
+          </div>
+
+          <div class="today-events-list">
+
+            <div *ngIf="isLoadingEvents">
+              <p class="event-item loading">Caricamento...</p>
+            </div>
+
+            <div *ngIf="!isLoadingEvents && todayEvents.length === 0">
+              <p class="event-item no-events">Nessun impegno per oggi.</p>
+            </div>
+
+            <div *ngFor="let event of todayEvents; trackBy: trackEventById" class="event-item">
+              <span class="event-dot" [style.backgroundColor]="event.color || '#3B82F6'"></span>
+              <span class="event-title">{{ event.title }}</span>
+            </div>
+
+          </div>
         </div>
       </section>
     </div>
   </div>
+
+
   <button type="button" id="chat-toggle" class="chat-btn">
     <span id="iszq12" class="material-symbols-outlined">chat_bubble</span>
   </button>

@@ -683,4 +683,94 @@ body.dark .tip-day p {
   margin-right: 93px;
 }
 
+/* STILI AGGIUNTIVI PER LA CARD "IMPEGNI DI OGGI"
+*/
 
+/* Card principale */
+.today-reminder-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: var(--color-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+}
+
+.today-reminder-card h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* "Cella" del giorno, stile calendario */
+.today-cell {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  flex-grow: 1; /* Falla espandere per riempire la card */
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  overflow: hidden; /* Mantiene i bordi arrotondati */
+}
+
+/* --- MODIFICA QUI --- */
+/* Data completa (non più solo un numero) */
+.today-number {
+  font-size: 1rem; /* Ridotto per la data lunga */
+  font-weight: 600;
+  color: var(--color-text-primary); /* Colore testo normale */
+  padding: 10px 12px;
+  text-align: center; /* Centrato */
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  text-transform: capitalize; /* Prima lettera del mese maiuscola */
+}
+/* --- FINE MODIFICA --- */
+
+
+/* Contenitore della lista eventi */
+.today-events-list {
+  padding: 10px;
+  overflow-y: auto; /* Aggiunge scroll se gli eventi sono troppi */
+  flex-grow: 1;
+}
+
+/* Singolo evento nella lista */
+.event-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+  background-color: var(--color-card);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: var(--shadow-xs);
+}
+
+/* Stili per i messaggi di caricamento o "nessun evento" */
+.event-item.loading,
+.event-item.no-events {
+  font-style: italic;
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Pallino colorato (come nel calendario) */
+.event-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+  flex-shrink: 0; /* Impedisce al pallino di rimpicciolirsi */
+}
+
+.event-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
