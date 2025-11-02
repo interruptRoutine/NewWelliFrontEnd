@@ -37,53 +37,84 @@
 
                 <div class="profile-header">
                   <div class="avatar-container">
-                    <div class="avatar avatar-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBZJXYbCFVdGrWmuNikFBCcBh_cG9IRWbM5hWiMe_NWlooM_sPfVogA_ugHJucELuFK933OJ_M1_5K7Bsq5RnrP1c8x5jwi3J9Bcm1su9WX10-Jy75O5uGkoFNudHvqA1X2sVKtmLbgfUAyPPtfPhxu7YG-w3_lI_1M5nuGsn6sKvvIsx6rmbDiW01iVkGlDhe9ccmeJGm1xJmI3xxW2M7x5q7nRoTAklWNWc2zF9SoJsxe3ZN8hzsBEI0RWc-1lgfKjhgTqY4ujjA");'></div>
-                    <button class="edit-avatar-button">
+
+                    <div class="avatar avatar-lg"
+                         [style.background-image]="'url(' + (user.avatarUrl || 'https://lh3.googleusercontent.com/aida-public/AB6AXuBZJXYbCFVdGrWmuNikFBCcBh_cG9IRWbM5hWiMe_NWlooM_sPfVogA_ugHJucELuFK933OJ_M1_5K7Bsq5RnrP1c8x5jwi3J9Bcm1su9WX10-Jy75O5uGkoFNudHvqA1X2sVKtmLbgfUAyPPtfPhxu7YG-w3_lI_1M5nuGsn6sKvvIsx6rmbDiW01iVkGlDhe9ccmeJGm1xJmI3xxW2M7x5q7nRoTAklWNWc2zF9SoJsxe3ZN8hzsBEI0RWc-1lgfKjhgTqY4ujjA') + ')'"
+                         (click)="onAvatarClick()"
+                         style="cursor: pointer;">
+                    </div>
+
+                    <button class="edit-avatar-button" (click)="onAvatarClick()">
                       <span class="material-symbols-outlined">edit</span>
                     </button>
+
+                    <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/png, image/jpeg" />
+
                   </div>
                   <div class="profile-header-details">
-                    <p class="profile-name">Amelia</p>
-                    <p class="profile-email">ameliar&#64;email.com</p>
+                    <p class="profile-name">{{ user.name }} {{ user.surname }}</p>
+                    <p class="profile-email">{{ user.email }}</p>
                   </div>
                 </div>
 
                 <div class="form-grid">
                   <label class="form-group">
                     <p class="form-label">Nome</p>
-                    <input class="form-input form-input-custom" value="Amelia" />
+                    <input class="form-input form-input-custom" [(ngModel)]="user.name" />
                   </label>
                   <label class="form-group">
                     <p class="form-label">Cognome</p>
-                    <input class="form-input form-input-custom" value="Amelia" />
+                    <input class="form-input form-input-custom" [(ngModel)]="user.surname" />
                   </label>
                   <label class="form-group">
                     <p class="form-label">Email Address</p>
-                    <input class="form-input form-input-custom" value="ameliar@email.com" />
+                    <input class="form-input form-input-custom" [value]="user.email" disabled />
                   </label>
                   <label class="form-group">
                     <p class="form-label">Password</p>
                     <div class="password-input-wrapper">
-                      <input class="form-input form-input-custom" type="password" value="••••••••" />
-                      <button class="password-change-button">Change Password</button>
+                      <input class="form-input form-input-custom" type="password" value="••••••••" disabled />
+                      <button class="password-change-button" (click)="openPasswordModal()">Change Password</button>
                     </div>
                   </label>
                   <label class="form-group">
                     <p class="form-label">Gender</p>
-                    <input class="form-input form-input-custom" value="Female" />
+                    <select class="form-input form-input-custom" [(ngModel)]="user.gender">
+                      <option value="MALE">Male</option>
+                      <option value="FEMALE">Female</option>
+                      <option value="NO_BINARY">Non binary</option>
+                      <option value="OTHER">Other</option>
+                    </select>
                   </label>
                   <label class="form-group">
                     <p class="form-label">Date of Birth</p>
-                    <input class="form-input form-input-custom" type="date" value="1990-01-01" />
+                    <input class="form-input form-input-custom" type="date" [value]="user.dob" disabled />
                   </label>
                   <label class="form-group">
                     <p class="form-label">City</p>
-                    <input class="form-input form-input-custom" value="San Francisco" />
+                    <div class="city-autocomplete-wrapper">
+                      <input class="form-input form-input-custom"
+                             [value]="user.city"
+                             (input)="onCityInput($event)"
+                             (blur)="hideCitySuggestions()"
+                             placeholder="Inizia a digitare una città..." />
+
+                      <div class="city-suggestions-container" *ngIf="showCitySuggestions">
+                        <ul class="city-suggestions-list">
+                          <li *ngFor="let city of citySuggestions"
+                              (click)="selectCity(city)"
+                              class="city-suggestion-item">
+                            {{ city.name }}, {{ city.country }}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
                   </label>
                 </div>
 
                 <div class="form-actions">
-                  <button class="button button-primary">Save Changes</button>
+                  <button class="button button-primary" (click)="saveChanges()">Save Changes</button>
                 </div>
               </div>
             </div>
@@ -94,7 +125,6 @@
               <h2 class="card-title" style="padding-bottom: 0.5rem;">Customize Your Dashboard</h2>
               <p class="card-subtitle">Show or hide widgets on your main screen.</p>
               <div class="toggle-list">
-
                 <div class="toggle-item">
                   <span class="toggle-label">Dark Mode</span>
                   <label class="toggle-switch">
@@ -102,9 +132,7 @@
                     <div class="toggle-bg"></div>
                   </label>
                 </div>
-
                 <div class="divider"></div>
-
                 <div class="toggle-item">
                   <div class="toggle-label-with-icon">
                     <span class="toggle-label">Horoscope</span>
@@ -147,16 +175,6 @@
                 </div>
                 <div class="toggle-item">
                   <div class="toggle-label-with-icon">
-                    <span class="toggle-label">Health Section</span>
-                    <span class="material-symbols-outlined toggle-info-icon">info</span>
-                  </div>
-                  <label class="toggle-switch">
-                    <input checked class="toggle-input" type="checkbox" value="" />
-                    <div class="toggle-bg"></div>
-                  </label>
-                </div>
-                <div class="toggle-item">
-                  <div class="toggle-label-with-icon">
                     <span class="toggle-label">AI Chat</span>
                     <span class="material-symbols-outlined toggle-info-icon">info</span>
                   </div>
@@ -165,34 +183,76 @@
                     <div class="toggle-bg"></div>
                   </label>
                 </div>
-                <div class="toggle-item">
-                  <div class="toggle-label-with-icon">
-                    <span class="toggle-label">News</span>
-                    <span class="material-symbols-outlined toggle-info-icon">info</span>
-                  </div>
-                  <label class="toggle-switch">
-                    <input class="toggle-input" type="checkbox" value="" />
-                    <div class="toggle-bg"></div>
-                  </label>
-                </div>
-                <div class="toggle-item">
-                  <div class="toggle-label-with-icon">
-                    <span class="toggle-label">Recipe Book</span>
-                    <span class="material-symbols-outlined toggle-info-icon">info</span>
-                  </div>
-                  <label class="toggle-switch">
-                    <input checked class="toggle-input" type="checkbox" value="" />
-                    <div class="toggle-bg"></div>
-                  </label>
-                </div>
-
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </main>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showPasswordModal" (click)="closePasswordModal()">
+  <div class="modal-content card glassmorphism" (click)="$event.stopPropagation()">
+
+    <h2 class="card-title" style="padding-bottom: 0.5rem; margin-top: 0;">Change Password</h2>
+
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <p class="form-label" style="margin-bottom: 0.5rem;">New Password</p>
+      <div class="password-input-wrapper">
+        <input class="form-input form-input-custom" [type]="newPasswordType" [(ngModel)]="passwordData.newPassword" style="width: 100%;" />
+        <button (click)="toggleNewPasswordVisibility()" class="password-toggle-button">
+          <span class="material-symbols-outlined">
+            {{ newPasswordType === 'password' ? 'visibility' : 'visibility_off' }}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+      <p class="form-label" style="margin-bottom: 0.5rem;">Confirm New Password</p>
+      <div class="password-input-wrapper">
+        <input class="form-input form-input-custom" [type]="confirmPasswordType" [(ngModel)]="passwordData.confirmPassword" style="width: 100%;" />
+        <button (click)="toggleConfirmPasswordVisibility()" class="password-toggle-button">
+          <span class="material-symbols-outlined">
+            {{ confirmPasswordType === 'password' ? 'visibility' : 'visibility_off' }}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+      <button class="button" (click)="closePasswordModal()" style="background-color: var(#6c757d); color: white;">Cancel</button>
+      <button class="button button-primary" (click)="submitNewPassword()">Save Password</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showImageCropperModal" (click)="closeCropperModal()">
+  <div class="modal-content card glassmorphism" (click)="$event.stopPropagation()" style="max-width: 600px;">
+
+    <h2 class="card-title" style="padding-bottom: 0.5rem; margin-top: 0;">Edit Profile Picture</h2>
+
+    <div class="cropper-container">
+      <image-cropper
+        [imageBase64]="imageBase64"
+        [maintainAspectRatio]="true"
+        [containWithinAspectRatio]="true"
+        [roundCropper]="true"
+        [aspectRatio]="1 / 1"
+        [resizeToWidth]="256"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+      <button class="button" (click)="closeCropperModal()" style="background-color: var(#6c757d); color: var(--color-black) ;">Cancel</button>
+      <button class="button button-primary" (click)="saveCroppedImage()">Save Image</button>
+    </div>
   </div>
 </div>
 
