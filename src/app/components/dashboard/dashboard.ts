@@ -5,6 +5,7 @@ import { Meteo } from "./meteo/meteo";
 import { EventDataService, BackendEvent } from "../calendar/event-data.service";
 import {AuthService} from '../core/auth/auth.service';
 import {UserDto, UserService} from '../../services/user.service';
+import {GeminiService, HoroscopeResponse} from '../../services/gemini.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,17 +25,39 @@ export class Dashboard implements OnInit
 
   userName : string = 'Utente';
 
+  horoscopeTitle: string = 'Caricamento...';
+  horoscopeDescription: string = 'Sto consultando le stelle...';
+  horoscopeError: boolean = false;
+
   constructor(
     private router: Router,
     private eventDataService: EventDataService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private geminiService: GeminiService
   ) {
   }
 
   ngOnInit(): void {
     this.loadTodayEvents();
     this.loadUserName();
+    this.loadHoroscope();
+  }
+
+  loadHoroscope(): void {
+    this.horoscopeError = false;
+    this.geminiService.getDailyHoroscope().subscribe({
+      next: (response: HoroscopeResponse) => {
+        this.horoscopeTitle = response.title;
+        this.horoscopeDescription = response.description;
+      },
+      error: (err) => {
+        console.error("Errore nel caricare l'oroscopo: ", err);
+        this.horoscopeTitle = 'Oroscopo';
+        this.horoscopeDescription = 'Non è stato possibile caricare l\'oroscopo di oggi. Riprova più tardi.';
+        this.horoscopeError = true;
+      }
+    });
   }
 
   loadUserName(): void {
