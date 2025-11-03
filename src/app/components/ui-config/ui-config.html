@@ -126,53 +126,68 @@
               <p class="card-subtitle">Mostra o nascondi widgets sulla tua bacheca.</p>
               <div class="toggle-list">
                 <div class="divider"></div>
+
                 <div class="toggle-item">
                   <div class="toggle-label-with-icon">
                     <span class="toggle-label">Oroscopo</span>
                     <span class="material-symbols-outlined toggle-info-icon">info</span>
                   </div>
                   <label class="toggle-switch">
-                    <input checked class="toggle-input" type="checkbox" value="" />
+                    <input class="toggle-input" type="checkbox"
+                           [(ngModel)]="widgetSettings.showHoroscope"
+                           (ngModelChange)="onWidgetSettingsChange()" />
                     <div class="toggle-bg"></div>
                   </label>
                 </div>
+
                 <div class="toggle-item">
                   <div class="toggle-label-with-icon">
                     <span class="toggle-label">Meteo</span>
                     <span class="material-symbols-outlined toggle-info-icon">info</span>
                   </div>
                   <label class="toggle-switch">
-                    <input checked class="toggle-input" type="checkbox" value="" />
+                    <input class="toggle-input" type="checkbox"
+                           [(ngModel)]="widgetSettings.showMeteo"
+                           (ngModelChange)="onWidgetSettingsChange()" />
                     <div class="toggle-bg"></div>
                   </label>
                 </div>
+
                 <div class="toggle-item">
                   <div class="toggle-label-with-icon">
-                    <span class="toggle-label">Playlist personalizzata</span>
+                    <span class="toggle-label">Frase del giorno</span>
                     <span class="material-symbols-outlined toggle-info-icon">info</span>
                   </div>
                   <label class="toggle-switch">
-                    <input class="toggle-input" type="checkbox" value="" />
+                    <input class="toggle-input" type="checkbox"
+                           [(ngModel)]="widgetSettings.showPlaylist"
+                           (ngModelChange)="onWidgetSettingsChange()" />
                     <div class="toggle-bg"></div>
                   </label>
                 </div>
+
                 <div class="toggle-item">
                   <div class="toggle-label-with-icon">
                     <span class="toggle-label">Reminders</span>
                     <span class="material-symbols-outlined toggle-info-icon">info</span>
                   </div>
                   <label class="toggle-switch">
-                    <input checked class="toggle-input" type="checkbox" value="" />
+                    <input class="toggle-input" type="checkbox"
+                           [(ngModel)]="widgetSettings.showReminders"
+                           (ngModelChange)="onWidgetSettingsChange()" />
                     <div class="toggle-bg"></div>
                   </label>
                 </div>
+
                 <div class="toggle-item">
                   <div class="toggle-label-with-icon">
                     <span class="toggle-label">AI Chat</span>
                     <span class="material-symbols-outlined toggle-info-icon">info</span>
                   </div>
                   <label class="toggle-switch">
-                    <input class="toggle-input" type="checkbox" value="" />
+                    <input class="toggle-input" type="checkbox"
+                           [(ngModel)]="widgetSettings.showAiChat"
+                           (ngModelChange)="onWidgetSettingsChange()" />
                     <div class="toggle-bg"></div>
                   </label>
                 </div>

@@ -175,6 +175,17 @@ body.dark .theme-toggle {
   transition: all 0.3s ease; /* (da meteo.css) */
 }
 
+.today-reminder-card {
+  /* height: 100%; */ /* RIMOSSO */
+  max-height: 250px; /* AGGIUNTO: Limita l'altezza della card */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: var(--color-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+}
+
 .card:hover {
   transform: translateY(-4px); /* (da meteo.css) */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08); /* (da meteo.css) */
@@ -698,16 +709,7 @@ body.dark .tip-day p {
 
 /* --- MODIFICA QUI --- */
 /* Card principale */
-.today-reminder-card {
-  /* height: 100%; */ /* RIMOSSO */
-  max-height: 250px; /* AGGIUNTO: Limita l'altezza della card */
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background-color: var(--color-card);
-  border-radius: 12px;
-  box-shadow: var(--shadow-card);
-}
+
 /* --- FINE MODIFICA --- */
 
 

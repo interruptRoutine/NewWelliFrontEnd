@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { UserService, UserDto, UserPutDto } from '../../services/user.service';
 import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
 import {AuthService} from '../core/auth/auth.service';
+import {WidgetSettings, WidgetSettingsService} from '../../services/widget-settings.service';
+import {Meteo} from '../dashboard/meteo/meteo';
 
 type Gender = 'MALE' | 'FEMALE' | 'NO_BINARY' | 'OTHER';
 
@@ -16,7 +18,8 @@ type Gender = 'MALE' | 'FEMALE' | 'NO_BINARY' | 'OTHER';
     RouterLink,
     CommonModule,
     FormsModule,
-    ImageCropperComponent
+    ImageCropperComponent,
+    Meteo
   ],
   templateUrl: './ui-config.html',
   styleUrl: './ui-config.css',
@@ -24,6 +27,8 @@ type Gender = 'MALE' | 'FEMALE' | 'NO_BINARY' | 'OTHER';
 export class UiConfig implements OnInit {
 
   public showDeleteModal = false;
+
+  widgetSettings!:WidgetSettings;
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
@@ -63,10 +68,13 @@ export class UiConfig implements OnInit {
     private userService: UserService,
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private widgetSettingsService: WidgetSettingsService
   ) {}
 
   ngOnInit(): void {
+    this.widgetSettings = this.widgetSettingsService.getSettings();
+
     this.userService.getUserInfo().subscribe({
       next: (data) => {
         this.user = data;
@@ -278,5 +286,9 @@ export class UiConfig implements OnInit {
         this.closeDeleteModal();
       }
     });
+  }
+
+  onWidgetSettingsChange(): void {
+    this.widgetSettingsService.saveSettings(this.widgetSettings);
   }
 }
