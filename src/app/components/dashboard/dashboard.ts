@@ -4,6 +4,7 @@ import { CommonModule } from "@angular/common";
 import { Meteo } from "./meteo/meteo";
 import { EventDataService, BackendEvent } from "../calendar/event-data.service";
 import {AuthService} from '../core/auth/auth.service';
+import {UserDto, UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,15 +22,32 @@ export class Dashboard implements OnInit
   todayDate: Date = new Date();
   isLoadingEvents: boolean = true;
 
+  userName : string = 'Utente';
+
   constructor(
     private router: Router,
     private eventDataService: EventDataService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {
   }
 
   ngOnInit(): void {
     this.loadTodayEvents();
+    this.loadUserName();
+  }
+
+  loadUserName(): void {
+    this.userService.getUserInfo().subscribe({
+      next: (user: UserDto) => {
+        if (user && user.name) {
+          this.userName = user.name;
+        }
+      },
+      error: (err) => {
+        console.error("Errore nel caricare le informazioni utente: ", err);
+      }
+    });
   }
 
   loadTodayEvents(): void {
