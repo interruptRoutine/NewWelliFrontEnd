@@ -43,5 +43,9 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/upload-avatar`, formData);
   }
 
+  deleteAccount(): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/delete`);
+  }
+
 
 }

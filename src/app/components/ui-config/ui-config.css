@@ -806,4 +806,109 @@ input[type="date"].form-input-custom {
   image-cropper {
     /* Vuoto è corretto! */
   }
+
+  /* --- STILI PER LA DANGER ZONE --- */
+  .danger-zone {
+    border: 1px solid #e53e3e; /* Rosso pericolo */
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 2.5rem;
+    background-color: #fff5f5; /* Sfondo rosso molto chiaro */
+  }
+
+  .danger-zone h2 {
+    color: #c53030; /* Rosso scuro */
+    margin-top: 0;
+  }
+
+  .danger-zone p {
+    color: #4a4a4a;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-delete {
+    background-color: #e53e3e; /* Colore rosso richiesto */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .btn-delete:hover {
+    background-color: #c53030; /* Rosso più scuro all'hover */
+  }
+
+  /* --- STILI PER IL MODALE --- */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); /* Sfondo scuro trasparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Assicura che sia sopra tutto */
+  }
+
+  .modal-content {
+    background: white;
+    padding: 2rem 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    z-index: 1001;
+  }
+
+  .modal-content h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #1a202c;
+  }
+
+  .modal-actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Spazio tra i pulsanti */
+  }
+
+  /* Stile generico per i pulsanti del modale */
+  .modal-actions .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  /* Pulsante Annulla (secondario) */
+  .modal-actions .btn-secondary {
+    background-color: #e2e8f0; /* Grigio chiaro */
+    color: #2d3748;
+  }
+
+  .modal-actions .btn-secondary:hover {
+    background-color: #cbd5e0;
+  }
+
+  /* Pulsante Conferma (danger) */
+  .modal-actions .btn-danger {
+    background-color: #e53e3e; /* Rosso */
+    color: white;
+  }
+
+  .modal-actions .btn-danger:hover {
+    background-color: #c53030;
+  }
 }

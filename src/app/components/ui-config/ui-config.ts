@@ -1,10 +1,11 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { UserService, UserDto, UserPutDto } from '../../services/user.service';
 import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
+import {AuthService} from '../core/auth/auth.service';
 
 type Gender = 'MALE' | 'FEMALE' | 'NO_BINARY' | 'OTHER';
 
@@ -21,6 +22,8 @@ type Gender = 'MALE' | 'FEMALE' | 'NO_BINARY' | 'OTHER';
   styleUrl: './ui-config.css',
 })
 export class UiConfig implements OnInit {
+
+  public showDeleteModal = false;
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
@@ -58,7 +61,9 @@ export class UiConfig implements OnInit {
 
   constructor(
     private userService: UserService,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -244,5 +249,34 @@ export class UiConfig implements OnInit {
       u8arr[n] = bstr.charCodeAt(n);
     }
     return new File([u8arr], filename, {type:mime});
+  }
+
+  /**
+   * Apre il modale di conferma eliminazione.
+   */
+  openDeleteModal(): void {
+    this.showDeleteModal = true;
+  }
+
+  /**
+   * Chiude il modale di conferma eliminazione.
+   */
+  closeDeleteModal(): void {
+    this.showDeleteModal = false;
+  }
+
+  confirmDeleteAccount(): void {
+    this.userService.deleteAccount().subscribe({
+      next: () => {
+        console.log('Account eliminato con successo');
+        this.authService.clearToken(); // Pulisce il token dal localStorage
+        this.router.navigate(['/home']); // Reindirizza alla home
+      },
+      error: (err) => {
+        console.error('Errore durante l\'eliminazione dell\'account:', err);
+        // Opzionale: mostra un messaggio di errore all'utente
+        this.closeDeleteModal();
+      }
+    });
   }
 }

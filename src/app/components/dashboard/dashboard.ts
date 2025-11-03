@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { Meteo } from "./meteo/meteo";
 import { EventDataService, BackendEvent } from "../calendar/event-data.service";
+import {AuthService} from '../core/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,8 @@ export class Dashboard implements OnInit
 
   constructor(
     private router: Router,
-    private eventDataService: EventDataService
+    private eventDataService: EventDataService,
+    private authService: AuthService
   ) {
   }
 
@@ -74,5 +76,10 @@ export class Dashboard implements OnInit
 
   openPage(URI: string) {
     this.router.navigate(["/" + URI])
+  }
+
+  logout(): void {
+    this.authService.clearToken();
+    this.router.navigate(['/home']);
   }
 }

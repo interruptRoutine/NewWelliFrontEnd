@@ -24,7 +24,7 @@
             <button routerLink="/dashboard" class="back-button">
               <span class="material-symbols-outlined">arrow_back</span>
             </button>
-            <p class="page-title">Settings</p>
+            <p class="page-title">Impostazioni</p>
           </div>
         </div>
 
@@ -32,7 +32,7 @@
 
           <div class="profile-column">
             <div class="card glassmorphism">
-              <h2 class="card-title">My Profile</h2>
+              <h2 class="card-title">Il mio Profilo</h2>
               <div class="profile-form-container">
 
                 <div class="profile-header">
@@ -67,7 +67,7 @@
                     <input class="form-input form-input-custom" [(ngModel)]="user.surname" />
                   </label>
                   <label class="form-group">
-                    <p class="form-label">Email Address</p>
+                    <p class="form-label">Email</p>
                     <input class="form-input form-input-custom" [value]="user.email" disabled />
                   </label>
                   <label class="form-group">
@@ -78,20 +78,20 @@
                     </div>
                   </label>
                   <label class="form-group">
-                    <p class="form-label">Gender</p>
+                    <p class="form-label">Genere</p>
                     <select class="form-input form-input-custom" [(ngModel)]="user.gender">
-                      <option value="MALE">Male</option>
-                      <option value="FEMALE">Female</option>
-                      <option value="NO_BINARY">Non binary</option>
-                      <option value="OTHER">Other</option>
+                      <option value="MALE">Maschio</option>
+                      <option value="FEMALE">Femmina</option>
+                      <option value="NO_BINARY">Non binario</option>
+                      <option value="OTHER">Altro</option>
                     </select>
                   </label>
                   <label class="form-group">
-                    <p class="form-label">Date of Birth</p>
+                    <p class="form-label">Data di nascita</p>
                     <input class="form-input form-input-custom" type="date" [value]="user.dob" disabled />
                   </label>
                   <label class="form-group">
-                    <p class="form-label">City</p>
+                    <p class="form-label">Città</p>
                     <div class="city-autocomplete-wrapper">
                       <input class="form-input form-input-custom"
                              [value]="user.city"
@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="form-actions">
-                  <button class="button button-primary" (click)="saveChanges()">Save Changes</button>
+                  <button class="button button-primary" (click)="saveChanges()">Salva cambiamenti</button>
                 </div>
               </div>
             </div>
@@ -122,11 +122,11 @@
 
           <div class="sidebar-column">
             <div class="card glassmorphism">
-              <h2 class="card-title" style="padding-bottom: 0.5rem;">Customize Your Dashboard</h2>
-              <p class="card-subtitle">Show or hide widgets on your main screen.</p>
+              <h2 class="card-title" style="padding-bottom: 0.5rem;">Personalizza la tua bacheca</h2>
+              <p class="card-subtitle">Mostra o nascondi widgets sulla tua bacheca.</p>
               <div class="toggle-list">
                 <div class="toggle-item">
-                  <span class="toggle-label">Dark Mode</span>
+                  <span class="toggle-label">Tema scuro</span>
                   <label class="toggle-switch">
                     <input class="toggle-input" type="checkbox" value="" />
                     <div class="toggle-bg"></div>
@@ -135,7 +135,7 @@
                 <div class="divider"></div>
                 <div class="toggle-item">
                   <div class="toggle-label-with-icon">
-                    <span class="toggle-label">Horoscope</span>
+                    <span class="toggle-label">Oroscopo</span>
                     <span class="material-symbols-outlined toggle-info-icon">info</span>
                   </div>
                   <label class="toggle-switch">
@@ -145,7 +145,7 @@
                 </div>
                 <div class="toggle-item">
                   <div class="toggle-label-with-icon">
-                    <span class="toggle-label">Weather</span>
+                    <span class="toggle-label">Meteo</span>
                     <span class="material-symbols-outlined toggle-info-icon">info</span>
                   </div>
                   <label class="toggle-switch">
@@ -155,7 +155,7 @@
                 </div>
                 <div class="toggle-item">
                   <div class="toggle-label-with-icon">
-                    <span class="toggle-label">Personalized Playlist</span>
+                    <span class="toggle-label">Playlist personalizzata</span>
                     <span class="material-symbols-outlined toggle-info-icon">info</span>
                   </div>
                   <label class="toggle-switch">
@@ -165,7 +165,7 @@
                 </div>
                 <div class="toggle-item">
                   <div class="toggle-label-with-icon">
-                    <span class="toggle-label">Calendar Reminders</span>
+                    <span class="toggle-label">Reminders</span>
                     <span class="material-symbols-outlined toggle-info-icon">info</span>
                   </div>
                   <label class="toggle-switch">
@@ -184,6 +184,38 @@
                   </label>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-container">
+
+          <div class="danger-zone">
+            <h2>Danger Zone</h2>
+            <p>
+              L'eliminazione del tuo account è un'azione permanente. Tutti i tuoi dati verranno
+              eliminati definitivamente e non potranno essere recuperati.
+            </p>
+            <button class="btn-delete" (click)="openDeleteModal()">
+              Elimina il tuo account
+            </button>
+          </div>
+        </div>
+
+
+        <div class="modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+
+          <div class="modal-content" (click)="$event.stopPropagation()">
+
+            <h3>Sei sicuro di voler eliminare il tuo account?</h3>
+
+            <div class="modal-actions">
+              <button class="btn btn-secondary" (click)="closeDeleteModal()">
+                Annulla
+              </button>
+
+              <button class="btn btn-danger" (click)="confirmDeleteAccount()">
+                Conferma
+              </button>
             </div>
           </div>
         </div>
@@ -255,6 +287,7 @@
     </div>
   </div>
 </div>
+
 
 </body>
 </html>
