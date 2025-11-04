@@ -236,7 +236,7 @@ body.dark .card {
 }
 
 .bg-accent {
-  background-color: #e4f0f3;
+  background-color: rgba(19, 237, 164, 0.58);
 }
 
 body.dark .bg-accent {
@@ -478,6 +478,8 @@ body.dark .chat-input button {
 
 #i47gt {
   background-color: rgba(19, 237, 164, 0.58);
+  height: 32px;
+  width: 32px;
 }
 
 #idpkuv {
