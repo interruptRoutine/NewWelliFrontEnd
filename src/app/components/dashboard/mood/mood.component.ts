@@ -7,7 +7,7 @@ import { MoodService } from './mood.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './mood.component.html',
-  styleUrls: ['./mood.component.css'] // Linka il CSS
+  styleUrls: ['./mood.component.css']
 })
 export class MoodComponent {
   @Output() moodSubmitted = new EventEmitter<void>();
@@ -17,11 +17,12 @@ export class MoodComponent {
   submitError: string = '';
 
   moods = [
-    { value: 'FELICE', icon: '😄' },
-    { value: 'SERENO', icon: '😌' },
-    { value: 'NEUTRALE', icon: '😐' },
-    { value: 'TRISTE', icon: '😔' },
-    { value: 'ARRABBIATO', icon: '😠' }
+    { value: 'HAPPY', icon: '😄' },
+    { value: 'CALM', icon: '😌' },
+    { value: 'NEUTRAL', icon: '😐' },
+    { value: 'SAD', icon: '😔' },
+    { value: 'ANGRY', icon: '😠' },
+    { value: 'ANXIOUS', icon: '😰'}
   ];
 
   constructor(private moodService: MoodService) {}
