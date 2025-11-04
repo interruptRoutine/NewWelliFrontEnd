@@ -10,6 +10,7 @@ import { MeteoService, MeteoResponse, User } from './MeteoService';
     HttpClientModule
   ],
   templateUrl: './meteo.html',
+  standalone: true,
   styleUrl: './meteo.css'
 })
 export class Meteo implements OnInit

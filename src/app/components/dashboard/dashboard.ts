@@ -18,13 +18,14 @@ import {Subscription} from 'rxjs';
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
+  standalone: true
 })
 
 
 export class Dashboard implements OnInit, OnDestroy
 {
   isChatOpen: boolean = false;
-  
+
   widgetSettings!: WidgetSettings;
   private settingsSub!: Subscription;
 
@@ -37,6 +38,8 @@ export class Dashboard implements OnInit, OnDestroy
   horoscopeTitle: string = 'Caricamento...';
   horoscopeDescription: string = 'Sto consultando le stelle...';
   horoscopeError: boolean = false;
+
+  playlistId: string = '37i9dQZF1DXcBWIGoYBM5M';
 
   constructor(
     private router: Router,
@@ -55,7 +58,6 @@ export class Dashboard implements OnInit, OnDestroy
   }
 
   ngOnInit(): void {
-    this.loadSavedTheme();
     this.loadTodayEvents();
     this.loadUserName();
     this.loadHoroscope();
@@ -154,5 +156,9 @@ export class Dashboard implements OnInit, OnDestroy
   logout(): void {
     this.authService.clearToken();
     this.router.navigate(['/home']);
+  }
+
+  getSpotifyLink(): string {
+    return `https://open.spotify.com/embed/playlist/${(this.playlistId)}?utm_source=generator`;
   }
 }
