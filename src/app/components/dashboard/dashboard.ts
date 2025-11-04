@@ -9,6 +9,8 @@ import {GeminiService, HoroscopeResponse} from '../../services/gemini.service';
 import {WidgetSettings, WidgetSettingsService} from '../../services/widget-settings.service';
 import {Subscription} from 'rxjs';
 import { MoodComponent } from './mood/mood.component';
+import { HttpClient } from '@angular/common/http';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,11 +39,11 @@ export class Dashboard implements OnInit, OnDestroy
 
   userName: string = 'Utente';
 
+  playlistId: string = '';
+
   horoscopeTitle: string = 'Caricamento...';
   horoscopeDescription: string = 'Sto consultando le stelle...';
   horoscopeError: boolean = false;
-
-  playlistId: string = '37i9dQZF1DXcBWIGoYBM5M';
 
   showMoodModal: boolean = false;
 
@@ -51,7 +53,9 @@ export class Dashboard implements OnInit, OnDestroy
     private authService: AuthService,
     private userService: UserService,
     private geminiService: GeminiService,
-    private widgetSettingsService: WidgetSettingsService
+    private widgetSettingsService: WidgetSettingsService,
+    private httpClient: HttpClient,
+    private sanitizer: DomSanitizer
   ) {
   }
 
@@ -105,6 +109,10 @@ export class Dashboard implements OnInit, OnDestroy
           this.userName = user.name;
         }
         this.showMoodModal = user.firstDailyAccess;
+
+        this.httpClient.get('/api/spotify/playlist', {responseType: 'text'}).subscribe(
+          (id) => this.playlistId = id);
+
       },
       error: (err) => {
         console.error("Errore nel caricare le informazioni utente: ", err);
@@ -115,6 +123,8 @@ export class Dashboard implements OnInit, OnDestroy
 
   onMoodSubmitted(): void {
     this.showMoodModal = false;
+    setTimeout(() => this.httpClient.get('/api/spotify/playlist', {responseType: 'text'}).subscribe(
+      (id) => this.playlistId = id), 500)
   }
 
   loadTodayEvents(): void {
@@ -154,7 +164,6 @@ export class Dashboard implements OnInit, OnDestroy
     });
   }
 
-
   trackEventById(index: number, event: BackendEvent): string {
     return event.id;
   }
@@ -168,7 +177,7 @@ export class Dashboard implements OnInit, OnDestroy
     this.router.navigate(['/home']);
   }
 
-  getSpotifyLink(): string {
-    return `https://open.spotify.com/embed/playlist/${(this.playlistId)}?utm_source=generator`;
+  getSpotifyLink(): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(`https://open.spotify.com/embed/playlist/${(this.playlistId)}?utm_source=generator`);
   }
 }
