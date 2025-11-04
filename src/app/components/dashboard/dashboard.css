@@ -197,6 +197,17 @@ body.dark .theme-toggle {
   transition: all 0.3s ease;
 }
 
+.today-reminder-card {
+  /* height: 100%; */ /* RIMOSSO */
+  max-height: 250px; /* AGGIUNTO: Limita l'altezza della card */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: var(--color-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+}
+
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
@@ -710,18 +721,12 @@ body.dark .tip-day p {
 }
 
 
-
 .today-reminder-card {
-
-  max-height: 250px;
+  max-height: none;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  background-color: var(--color-card);
-  border-radius: 12px;
-  box-shadow: var(--shadow-card);
 }
-
 
 
 .today-reminder-card h2 {

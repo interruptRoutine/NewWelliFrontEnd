@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { Meteo } from "./meteo/meteo";
 import { EventDataService, BackendEvent } from "../calendar/event-data.service";
 import {AuthService} from '../core/auth/auth.service';
 import {UserDto, UserService} from '../../services/user.service';
+import {GeminiService, HoroscopeResponse} from '../../services/gemini.service';
+import {WidgetSettings, WidgetSettingsService} from '../../services/widget-settings.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,11 +20,13 @@ import {UserDto, UserService} from '../../services/user.service';
   styleUrl: './dashboard.css',
 })
 
-export class Dashboard implements OnInit {
-  isChatOpen: boolean = false;
 
-  isDarkMode: boolean = false;
-  readonly THEME_STORAGE_KEY = 'dashboard-theme';
+export class Dashboard implements OnInit, OnDestroy
+{
+  isChatOpen: boolean = false;
+  
+  widgetSettings!: WidgetSettings;
+  private settingsSub!: Subscription;
 
   todayEvents: BackendEvent[] = [];
   todayDate: Date = new Date();
@@ -29,34 +34,52 @@ export class Dashboard implements OnInit {
 
   userName: string = 'Utente';
 
+  horoscopeTitle: string = 'Caricamento...';
+  horoscopeDescription: string = 'Sto consultando le stelle...';
+  horoscopeError: boolean = false;
+
   constructor(
     private router: Router,
     private eventDataService: EventDataService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private geminiService: GeminiService,
+    private widgetSettingsService: WidgetSettingsService
   ) {
+  }
+
+  ngOnDestroy(): void {
+    if (this.settingsSub) {
+      this.settingsSub.unsubscribe();
+    }
   }
 
   ngOnInit(): void {
     this.loadSavedTheme();
     this.loadTodayEvents();
     this.loadUserName();
+    this.loadHoroscope();
+
+    this.settingsSub = this.widgetSettingsService.settings$.subscribe(settings => {
+      this.widgetSettings = settings;
+    });
+
   }
 
-  // DARK MODE
-  toggleTheme(): void {
-    // Inverti lo stato
-    this.isDarkMode = !this.isDarkMode;
-    const body = document.body;
-    if (this.isDarkMode) {
-      body.classList.add('dark');
-      localStorage.setItem(this.THEME_STORAGE_KEY, 'dark');
-      console.log("Tema: Dark Mode attivata.");
-    } else {
-      body.classList.remove('dark');
-      localStorage.setItem(this.THEME_STORAGE_KEY, 'light');
-      console.log("Tema: Light Mode attivata.");
-    }
+  loadHoroscope(): void {
+    this.horoscopeError = false;
+    this.geminiService.getDailyHoroscope().subscribe({
+      next: (response: HoroscopeResponse) => {
+        this.horoscopeTitle = response.title;
+        this.horoscopeDescription = response.description;
+      },
+      error: (err) => {
+        console.error("Errore nel caricare l'oroscopo: ", err);
+        this.horoscopeTitle = 'Oroscopo';
+        this.horoscopeDescription = 'Non è stato possibile caricare l\'oroscopo di oggi. Riprova più tardi.';
+        this.horoscopeError = true;
+      }
+    });
   }
 
   toggleChat(): void {
@@ -131,18 +154,5 @@ export class Dashboard implements OnInit {
   logout(): void {
     this.authService.clearToken();
     this.router.navigate(['/home']);
-  }
-
-  loadSavedTheme(): void {
-    const savedTheme = localStorage.getItem(this.THEME_STORAGE_KEY);
-
-    // 1. Se è salvato come 'dark', attiva la dark mode subito
-    if (savedTheme === 'dark') {
-      this.isDarkMode = true;
-      document.body.classList.add('dark');
-    } else {
-      this.isDarkMode = false;
-      document.body.classList.remove('dark');
-    }
   }
 }
