@@ -10,7 +10,6 @@ export class MoodService {
   private http = inject(HttpClient);
 
   setMood(payload: MoodRequestDTO): Observable<any> {
-    //return this.http.post<any>(`${API_BASE}/mood`, payload);
     return this.http.post<any>(`/api/users/mood`, payload);
   }
 }
