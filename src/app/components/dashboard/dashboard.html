@@ -73,7 +73,7 @@
         <section class="cards">
 
           <div class="card" *ngIf="widgetSettings?.showHoroscope">
-            <div class="card-header">
+            <div>
               <div class="icon bg-accent">
                 <span class="material-symbols-outlined">psychology</span>
               </div>
@@ -87,15 +87,23 @@
 
           <app-meteo *ngIf="widgetSettings?.showMeteo"></app-meteo>
 
-          <div class="card playlist" *ngIf="widgetSettings?.showPlaylist">
-            <div class="info">
-              <p class="label">Daily</p>
-              <h3 class="title">La frase del giorno</h3>
-              <p class="desc">
-                Vai con fiducia nella direzione dei tuoi sogni. Vivi la vita che hai immaginato.
-              </p>
+          <div class="card playlist" *ngIf="widgetSettings?.showPhrase">
+            <h3>La frase del giorno</h3>
+            <div *ngIf="quote; else loadingQuote" class="quote-content">
+              <p class="phrase">"{{ quote.phrase }}"</p>
+              <span class="author">- {{ quote.author }}</span>
             </div>
+            <ng-template #loadingQuote>
+              <div class="loading-container">
+                <p>Sto generando un pensiero per te...</p>
+              </div>
+            </ng-template>
           </div>
+
+      <app-mood
+        *ngIf="showMoodModal"
+        (moodSubmitted)="onMoodSubmitted()">
+      </app-mood>
           <div class="card playlist" *ngIf="widgetSettings?.showPlaylist">
             <iframe data-testid="embed-iframe" style="border-radius:12px"
                     [src]='getSpotifyLink()' width="100%" height="500"
@@ -106,8 +114,8 @@
         </section>
       </div>
 
-      <div class="side-section">
-        <section class="card today-reminder-card" *ngIf="widgetSettings?.showReminders">
+      <div>
+        <section class="card side-section" *ngIf="widgetSettings?.showReminders">
           <h2>Impegni di oggi</h2>
           <div class="today-cell">
             <div class="today-number">{{ todayDate | date: 'd MMMM y' }}</div>

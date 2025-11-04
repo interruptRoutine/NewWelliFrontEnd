@@ -4,9 +4,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export interface WidgetSettings {
   showHoroscope: boolean;
   showMeteo: boolean;
-  showPlaylist: boolean;
+  showPhrase: boolean;
   showReminders: boolean;
   showAiChat: boolean;
+  showPlaylist: boolean;
 }
 
 @Injectable({
@@ -19,9 +20,10 @@ export class WidgetSettingsService {
   private defaultSettings: WidgetSettings = {
     showHoroscope: true,
     showMeteo: true,
-    showPlaylist: true,
+    showPhrase: true,
     showReminders: true,
-    showAiChat: true
+    showAiChat: true,
+    showPlaylist: true,
   };
 
   private settingsSubject: BehaviorSubject<WidgetSettings>;
@@ -43,6 +45,6 @@ export class WidgetSettingsService {
 
   saveSettings(settings: WidgetSettings): void {
     localStorage.setItem(this.storageKey, JSON.stringify(settings));
-    this.settingsSubject.next(settings); // Notifica a tutti i subscribers
+    this.settingsSubject.next(settings);
   }
 }

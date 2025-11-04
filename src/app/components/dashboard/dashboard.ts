@@ -5,10 +5,11 @@ import { Meteo } from "./meteo/meteo";
 import { EventDataService, BackendEvent } from "../calendar/event-data.service";
 import {AuthService} from '../core/auth/auth.service';
 import {UserDto, UserService} from '../../services/user.service';
-import {GeminiService, HoroscopeResponse} from '../../services/gemini.service';
+import {GeminiService, HoroscopeResponse, Phrase} from '../../services/gemini.service';
 import {WidgetSettings, WidgetSettingsService} from '../../services/widget-settings.service';
 import {Subscription} from 'rxjs';
 import { MoodComponent } from './mood/mood.component';
+import {MoodService} from './mood/mood.service';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -29,6 +30,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class Dashboard implements OnInit, OnDestroy
 {
   isChatOpen: boolean = false;
+  quote: Phrase | null = null;
 
   widgetSettings!: WidgetSettings;
   private settingsSub!: Subscription;
@@ -69,11 +71,26 @@ export class Dashboard implements OnInit, OnDestroy
     this.loadTodayEvents();
     this.loadUserData();
     this.loadHoroscope();
+    this.loadQuoteOfTheDay();
 
     this.settingsSub = this.widgetSettingsService.settings$.subscribe(settings => {
       this.widgetSettings = settings;
     });
+  }
 
+  loadQuoteOfTheDay(): void {
+    this.geminiService.getQuoteOfTheDay().subscribe({
+      next: (data) => {
+        this.quote = data;
+      },
+      error: (err) => {
+        console.error('Errore nel caricare la frase del giorno:', err);
+        this.quote = {
+          phrase: 'Il miglior modo per predire il futuro è crearlo.',
+          author: 'Peter Drucker'
+        };
+      }
+    });
   }
 
   loadHoroscope(): void {
@@ -103,7 +120,7 @@ export class Dashboard implements OnInit, OnDestroy
   }
 
   loadUserData(): void {
-    this.userService.getUserInfo().subscribe({ //
+    this.userService.getUserInfo().subscribe({
       next: (user: UserDto) => {
         if (user && user.name) {
           this.userName = user.name;
@@ -123,6 +140,7 @@ export class Dashboard implements OnInit, OnDestroy
 
   onMoodSubmitted(): void {
     this.showMoodModal = false;
+    this.loadQuoteOfTheDay();
     setTimeout(() => this.httpClient.get('/api/spotify/playlist', {responseType: 'text'}).subscribe(
       (id) => this.playlistId = id), 500)
   }
