@@ -18,7 +18,7 @@ export class MoodComponent {
 
   moods = [
     { value: 'HAPPY', icon: '😄' },
-    { value: 'CALM', icon: '😌' },
+    { value: 'PEACEFUL', icon: '😌' },
     { value: 'NEUTRAL', icon: '😐' },
     { value: 'SAD', icon: '😔' },
     { value: 'ANGRY', icon: '😠' },
