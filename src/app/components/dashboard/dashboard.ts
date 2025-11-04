@@ -14,13 +14,17 @@ import {Subscription} from 'rxjs';
   imports: [
     RouterLink,
     CommonModule,
-    Meteo
+    Meteo,
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
+
+
 export class Dashboard implements OnInit, OnDestroy
 {
+  isChatOpen: boolean = false;
+  
   widgetSettings!: WidgetSettings;
   private settingsSub!: Subscription;
 
@@ -28,7 +32,7 @@ export class Dashboard implements OnInit, OnDestroy
   todayDate: Date = new Date();
   isLoadingEvents: boolean = true;
 
-  userName : string = 'Utente';
+  userName: string = 'Utente';
 
   horoscopeTitle: string = 'Caricamento...';
   horoscopeDescription: string = 'Sto consultando le stelle...';
@@ -51,6 +55,7 @@ export class Dashboard implements OnInit, OnDestroy
   }
 
   ngOnInit(): void {
+    this.loadSavedTheme();
     this.loadTodayEvents();
     this.loadUserName();
     this.loadHoroscope();
@@ -75,6 +80,16 @@ export class Dashboard implements OnInit, OnDestroy
         this.horoscopeError = true;
       }
     });
+  }
+
+  toggleChat(): void {
+    this.isChatOpen = !this.isChatOpen;
+    // Aggiungiamo un log per il debug
+    console.log("Stato Chat aggiornato:", this.isChatOpen);
+  }
+
+  closeChat(): void {
+    this.isChatOpen = false;
   }
 
   loadUserName(): void {

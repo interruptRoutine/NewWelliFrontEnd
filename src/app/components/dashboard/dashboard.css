@@ -7,9 +7,28 @@ html {
   margin: 0;
   padding: 0;
 }
+:root {
+  --font-display: 'Poppins', sans-serif;
+  --text-light: #3c4144;
+  --background-light: #f5f5f5;
+  --surface-color: #ffffff;
+
+  --text-light-rgb: 60, 65, 68;
+  --text-dark-rgb: 209, 213, 216;
+
+
+  --text-dark: #d1d5d8;
+  --background-dark: #2e3440;
+  --surface-dark: #3b4252;
+
+  --current-text-rgb: var(--text-light-rgb);
+
+
+  --text-opacity-70: rgba(60, 65, 68, .7);
+  --text-opacity-80: rgba(60, 65, 68, .8);
+}
 
 body {
-  font-family: var(--font-display);
   background-color: var(--background-light);
   color: var(--text-light);
   transition: background 0.3s, color 0.3s;
@@ -17,13 +36,21 @@ body {
 }
 
 body.dark {
-  background-color: var(--background-dark);
-  color: var(--text-dark);
+  --background-light: var(--background-dark);
+  --text-light: var(--text-dark);
+  --surface-color: var(--surface-dark);
+
+  --current-text-rgb: var(--text-dark-rgb);
+
+
+  --text-opacity-70: rgba(209, 213, 216, .7);
+  --text-opacity-80: rgba(209, 213, 216, .8);
 }
 
 .dashboard {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+
 }
 
 .sidebar {
@@ -35,12 +62,11 @@ body.dark {
   flex-direction: column;
   align-items: center;
   gap: 2.5rem;
-  undefined: undefined;
 }
 
 body.dark .sidebar {
   background-color: rgba(60, 65, 68, 0.5);
-  undefined: undefined;
+
 }
 
 .sidebar .logo .icon-lg {
@@ -53,7 +79,6 @@ body.dark .sidebar {
   flex-direction: column;
   gap: 1.5rem;
   align-items: center;
-  undefined: undefined;
 }
 
 .menu-item {
@@ -64,7 +89,6 @@ body.dark .sidebar {
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
-  undefined: undefined;
 }
 
 .menu-item .icon {
@@ -123,19 +147,17 @@ body.dark .menu-item:hover .icon {
 .page-header h1 {
   font-size: 2.25rem;
   font-weight: bold;
-  undefined: undefined;
   line-height: 1.2;
   color: var(--text-light);
 }
 
 .page-header p {
-  color: rgba(var(--text-light), .7);
+
   font-size: 1rem;
-  undefined: undefined;
 }
 
 body.dark .page-header p {
-  color: rgba(var(--text-dark), .7);
+  color: var(--text-opacity-70);
 }
 
 .theme-toggle {
@@ -163,16 +185,16 @@ body.dark .theme-toggle {
   gap: 1.5rem;
 }
 
-/* Stili copiati da meteo.css per uniformare tutte le card */
+
 .card {
-  background-color: var(--surface-color); /* meteo.css usa var(--surface-color) */
-  border-radius: 1.25rem; /* 20px (da meteo.css) */
-  padding: 1.5rem; /* 24px (da meteo.css) */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* (da meteo.css) */
+  background-color: var(--surface-color);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* 16px (da meteo.css) */
-  transition: all 0.3s ease; /* (da meteo.css) */
+  gap: 1rem;
+  transition: all 0.3s ease;
 }
 
 .today-reminder-card {
@@ -187,8 +209,8 @@ body.dark .theme-toggle {
 }
 
 .card:hover {
-  transform: translateY(-4px); /* (da meteo.css) */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08); /* (da meteo.css) */
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
 }
 
 
@@ -490,7 +512,6 @@ body.dark .chat-input button {
 .logo .material-symbols-outlined {
   color: var(--color-primary);
   font-size: 2.25rem;
-  undefined: undefined;
 }
 
 body.dark .icon-wrapper:hover {
@@ -499,7 +520,6 @@ body.dark .icon-wrapper:hover {
 
 .menu-item.active .icon-wrapper {
   background-color: rgba(136, 192, 208, 0.2);
-  undefined: undefined;
 }
 
 .menu-item.active .icon-wrapper .material-symbols-outlined {
@@ -508,7 +528,6 @@ body.dark .icon-wrapper:hover {
 
 .menu-item .label {
   font-size: 0.75rem;
-  undefined: undefined;
   font-weight: 500;
   color: var(--text-light);
 }
@@ -528,7 +547,6 @@ body.dark .page-header h1 {
 
 .card-header h2 {
   font-size: 1.125rem;
-  undefined: undefined;
   font-weight: bold;
   color: var(--text-light);
 }
@@ -539,7 +557,6 @@ body.dark .card-header h2 {
 
 .card-header .view-all {
   font-size: 0.875rem;
-  undefined: undefined;
   font-weight: 600;
   color: var(--color-primary);
   text-decoration: none;
@@ -563,12 +580,13 @@ body.dark .card-item h3 {
 .card-item p {
   margin: 0;
   font-size: 0.875rem;
-  undefined: undefined;
-  color: rgba(var(--text-light), .8);
+  color: var(--text-opacity-80);
 }
 
 body.dark .card-item p {
-  color: rgba(var(--text-dark), .8);
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-opacity-80);
 }
 
 .card-list .list-item {
@@ -580,7 +598,6 @@ body.dark .card-item p {
 .card-list .icon-circle {
   width: 2.5rem;
   height: 2.5rem;
-  undefined: undefined;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -590,7 +607,6 @@ body.dark .card-item p {
 
 body.dark .card-list .icon-circle {
   background-color: rgba(136, 192, 208, 0.2);
-  undefined: undefined;
 }
 
 body.dark .list-title {
@@ -598,7 +614,7 @@ body.dark .list-title {
 }
 
 body.dark .list-desc {
-  color: rgba(var(--text-dark), .7);
+  color: var(--text-opacity-70);
 }
 
 .one-col .card {
@@ -631,17 +647,17 @@ body.dark .tip-icon {
 
 .tip-icon .material-symbols-outlined {
   font-size: 2.5rem;
-  undefined: undefined;
   color: var(--color-primary);
 }
 
 .tip-day p {
   font-size: 0.875rem;
-  color: rgba(var(--text-light), .8);
+  color: var(--text-opacity-80);
 }
 
 body.dark .tip-day p {
-  color: rgba(var(--text-dark), .8);
+  font-size: 0.875rem;
+  color: var(--text-opacity-80);
 }
 
 #iph5j-3 {
@@ -704,13 +720,13 @@ body.dark .tip-day p {
   margin-right: 93px;
 }
 
-/* STILI AGGIUNTIVI PER LA CARD "IMPEGNI DI OGGI"
-*/
 
-/* --- MODIFICA QUI --- */
-/* Card principale */
-
-/* --- FINE MODIFICA --- */
+.today-reminder-card {
+  max-height: none;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
 
 
 .today-reminder-card h2 {
@@ -719,38 +735,38 @@ body.dark .tip-day p {
   margin-bottom: 15px;
 }
 
-/* "Cella" del giorno, stile calendario */
+
 .today-cell {
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  flex-grow: 1; /* Falla espandere per riempire la card */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   background-color: var(--color-bg);
-  overflow: hidden; /* Mantiene i bordi arrotondati */
+  overflow: hidden;
 }
 
-/* Data completa (non più solo un numero) */
+
 .today-number {
-  font-size: 1rem; /* Ridotto per la data lunga */
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--color-text-primary); /* Colore testo normale */
+  color: var(--color-text-primary);
   padding: 10px 12px;
-  text-align: center; /* Centrato */
+  text-align: center;
   border-bottom: 1px solid var(--color-border);
   background-color: var(--color-card);
-  text-transform: capitalize; /* Prima lettera del mese maiuscola */
+  text-transform: capitalize;
 }
 
 
-/* Contenitore della lista eventi */
+
 .today-events-list {
   padding: 10px;
-  overflow-y: auto; /* Aggiunge scroll se gli eventi sono troppi */
+  overflow-y: auto;
   flex-grow: 1;
 }
 
-/* Singolo evento nella lista */
+
 .event-item {
   display: flex;
   align-items: center;
@@ -765,7 +781,7 @@ body.dark .tip-day p {
   box-shadow: var(--shadow-xs);
 }
 
-/* Stili per i messaggi di caricamento o "nessun evento" */
+
 .event-item.loading,
 .event-item.no-events {
   font-style: italic;
@@ -774,17 +790,36 @@ body.dark .tip-day p {
   box-shadow: none;
 }
 
-/* Pallino colorato (come nel calendario) */
+
 .event-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   margin-right: 8px;
-  flex-shrink: 0; /* Impedisce al pallino di rimpicciolirsi */
+  flex-shrink: 0;
 }
 
 .event-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+#i1xnf .icon svg {
+
+  width: 24px;
+  height: 24px;
+
+}
+
+.menu-item .gjs-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#i1xnf {
+  margin-top: 40px;
 }
