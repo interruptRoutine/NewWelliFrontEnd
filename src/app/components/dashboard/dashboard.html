@@ -82,9 +82,9 @@
       <h1 id="ijz21">Welcome, {{userName}}!</h1>
       <p id="iahyl">Sei pronto ad iniziare la tua giornata?</p>
     </div>
-    <button type="button" id="theme-toggle" class="theme-toggle">
-      <span id="iwn4h" class="material-symbols-outlined">dark_mode</span>
-    </button>
+
+
+
   </header>
   <div id="i3ozj" class="grid">
     <div id="ip7cz" class="main-section">
@@ -148,14 +148,15 @@
   </div>
 
 
-  <button type="button" id="chat-toggle" class="chat-btn">
+  <button type="button" id="chat-toggle" class="chat-btn" (click)="toggleChat()">
     <span id="iszq12" class="material-symbols-outlined">chat_bubble</span>
   </button>
 </main><!-- 💬 Pulsante flottante --><!-- 💬 Finestra Chat -->
-<div id="chat-popup" class="chat-popup hidden">
+<div id="chat-popup" class="chat-popup" [class.hidden]="!isChatOpen">
+
   <div id="it86h9" class="chat-header">
-    <span id="i55kos">AI Chat</span>
-    <button type="button" id="chat-close">×</button>
+    <span id="i55kos">Welli</span>
+    <button type="button" id="chat-close" (click)="closeChat()">×</button>
   </div>
   <div id="chat-messages" class="chat-messages">
     <div id="img83k" class="msg bot">👋 Ciao! Come posso aiutarti oggi?</div>
@@ -165,55 +166,7 @@
     <button type="button" id="send-btn">➡️</button>
   </div>
 </div>
-<script id="i6psmz">
-  document.addEventListener("DOMContentLoaded", () => {
-    // 🌗 Tema toggle
-    const toggle = document.getElementById("theme-toggle");
-    toggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      const icon = toggle.querySelector(".material-symbols-outlined");
-      icon.textContent = document.body.classList.contains("dark") ? "light_mode" : "dark_mode";
-      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
-    });
-    if (localStorage.getItem("theme") === "dark") document.body.classList.add("dark");
 
-    // 💬 Chat toggle
-    const chatBtn = document.getElementById("chat-toggle");
-    const chatPopup = document.getElementById("chat-popup");
-    const chatClose = document.getElementById("chat-close");
-
-    chatBtn.addEventListener("click", () => {
-      chatPopup.classList.toggle("hidden");
-    });
-
-    chatClose.addEventListener("click", () => {
-      chatPopup.classList.add("hidden");
-    });
-
-    // ✉️ Invia messaggio (simulazione IA)
-    const sendBtn = document.getElementById("send-btn");
-    const userInput = document.getElementById("user-input");
-    const chatMessages = document.getElementById("chat-messages");
-
-    function sendMessage() {
-      const msg = userInput.value.trim();
-      if (!msg) return;
-      chatMessages.innerHTML += `<div class="msg user">${msg}</div>`;
-      userInput.value = "";
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-
-      setTimeout(() => {
-        chatMessages.innerHTML += `<div class="msg bot">🤖 Sto pensando... "${msg}" è interessante!</div>`;
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }, 800);
-    }
-
-    sendBtn.addEventListener("click", sendMessage);
-    userInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
-  });
-</script>
 </div>
 </body>
 

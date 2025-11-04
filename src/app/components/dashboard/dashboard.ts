@@ -11,18 +11,23 @@ import {UserDto, UserService} from '../../services/user.service';
   imports: [
     RouterLink,
     CommonModule,
-    Meteo
+    Meteo,
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnInit
-{
+
+export class Dashboard implements OnInit {
+  isChatOpen: boolean = false;
+
+  isDarkMode: boolean = false;
+  readonly THEME_STORAGE_KEY = 'dashboard-theme';
+
   todayEvents: BackendEvent[] = [];
   todayDate: Date = new Date();
   isLoadingEvents: boolean = true;
 
-  userName : string = 'Utente';
+  userName: string = 'Utente';
 
   constructor(
     private router: Router,
@@ -33,8 +38,35 @@ export class Dashboard implements OnInit
   }
 
   ngOnInit(): void {
+    this.loadSavedTheme();
     this.loadTodayEvents();
     this.loadUserName();
+  }
+
+  // DARK MODE
+  toggleTheme(): void {
+    // Inverti lo stato
+    this.isDarkMode = !this.isDarkMode;
+    const body = document.body;
+    if (this.isDarkMode) {
+      body.classList.add('dark');
+      localStorage.setItem(this.THEME_STORAGE_KEY, 'dark');
+      console.log("Tema: Dark Mode attivata.");
+    } else {
+      body.classList.remove('dark');
+      localStorage.setItem(this.THEME_STORAGE_KEY, 'light');
+      console.log("Tema: Light Mode attivata.");
+    }
+  }
+
+  toggleChat(): void {
+    this.isChatOpen = !this.isChatOpen;
+    // Aggiungiamo un log per il debug
+    console.log("Stato Chat aggiornato:", this.isChatOpen);
+  }
+
+  closeChat(): void {
+    this.isChatOpen = false;
   }
 
   loadUserName(): void {
@@ -99,5 +131,18 @@ export class Dashboard implements OnInit
   logout(): void {
     this.authService.clearToken();
     this.router.navigate(['/home']);
+  }
+
+  loadSavedTheme(): void {
+    const savedTheme = localStorage.getItem(this.THEME_STORAGE_KEY);
+
+    // 1. Se è salvato come 'dark', attiva la dark mode subito
+    if (savedTheme === 'dark') {
+      this.isDarkMode = true;
+      document.body.classList.add('dark');
+    } else {
+      this.isDarkMode = false;
+      document.body.classList.remove('dark');
+    }
   }
 }
