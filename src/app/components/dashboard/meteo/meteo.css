@@ -1,9 +1,8 @@
 :host {
-  display: contents; /* Fa comportare il componente come se non ci fosse */
+  display: contents;
 }
 
-/* Stili per la card (copiati da dashboard.css per coerenza)
-*/
+/* ... [Stili .card, .card-header, .icon, .label, .title, .desc - INVARIATI] ... */
 .card {
   background-color: var(--surface-color);
   border-radius: 1.25rem; /* 20px */
@@ -13,6 +12,9 @@
   flex-direction: column;
   gap: 1rem; /* 16px */
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .card:hover {
@@ -60,4 +62,147 @@
   color: var(--text-secondary-color);
   margin: 0;
   line-height: 1.5;
+}
+
+
+/* --- STILI PER SFONDI ANIMATI A GRADIENTE --- */
+
+@keyframes animatedBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* MODIFICA: Classe base per l'animazione (aggiunte TUTTE le classi) */
+.card.sunny-bg, .card.cloudy-bg, .card.rainy-bg, .card.snowy-bg, .card.stormy-bg, .card.foggy-bg,
+.card.night-clear-bg, .card.night-cloudy-bg, .card.night-foggy-bg, .card.night-rainy-bg,
+.card.night-snowy-bg, .card.night-stormy-bg
+{
+  background-size: 400% 400%;
+  animation: animatedBackground 15s ease infinite;
+  color: #fff; /* Testo bianco per contrasto (tranne neve/giorno) */
+}
+
+/* MODIFICA: Sovrascrive i colori del testo (aggiunte TUTTE le classi notturne) */
+.card.sunny-bg .label, .card.sunny-bg .desc,
+.card.cloudy-bg .label, .card.cloudy-bg .desc,
+.card.rainy-bg .label, .card.rainy-bg .desc,
+.card.stormy-bg .label, .card.stormy-bg .desc,
+.card.foggy-bg .label, .card.foggy-bg .desc,
+.card.night-clear-bg .label, .card.night-clear-bg .desc,
+.card.night-cloudy-bg .label, .card.night-cloudy-bg .desc,
+.card.night-foggy-bg .label, .card.night-foggy-bg .desc,
+.card.night-rainy-bg .label, .card.night-rainy-bg .desc,
+.card.night-snowy-bg .label, .card.night-snowy-bg .desc,
+.card.night-stormy-bg .label, .card.night-stormy-bg .desc
+{
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.card.sunny-bg .title,
+.card.cloudy-bg .title,
+.card.rainy-bg .title,
+.card.stormy-bg .title,
+.card.foggy-bg .title,
+.card.night-clear-bg .title,
+.card.night-cloudy-bg .title,
+.card.night-foggy-bg .title,
+.card.night-rainy-bg .title,
+.card.night-snowy-bg .title,
+.card.night-stormy-bg .title
+{
+  color: #fff;
+}
+
+/* MODIFICA: Sovrascrive i colori dell'icona (aggiunte TUTTE le classi notturne) */
+.card.sunny-bg .icon.bg-accent,
+.card.cloudy-bg .icon.bg-accent,
+.card.rainy-bg .icon.bg-accent,
+.card.stormy-bg .icon.bg-accent,
+.card.foggy-bg .icon.bg-accent,
+.card.night-clear-bg .icon.bg-accent,
+.card.night-cloudy-bg .icon.bg-accent,
+.card.night-foggy-bg .icon.bg-accent,
+.card.night-rainy-bg .icon.bg-accent,
+.card.night-snowy-bg .icon.bg-accent,
+.card.night-stormy-bg .icon.bg-accent
+{
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+
+/* Stile di default (Ripristino) */
+.card.default-bg {
+  background-color: var(--surface-color);
+  background-image: none;
+  animation: none;
+}
+.card.default-bg .label, .card.default-bg .desc {
+  color: var(--text-secondary-color);
+}
+.card.default-bg .title {
+  color: var(--text-primary-color);
+}
+.card.default-bg .icon.bg-accent {
+  background-color: var(--accent-color-light);
+  color: var(--accent-color);
+}
+
+
+/* --- Gradienti specifici --- */
+
+/* GIORNO */
+.card.sunny-bg {
+  background-image: linear-gradient(45deg, #ffc107, #ff9800, #f57c00);
+}
+.card.cloudy-bg {
+  background-image: linear-gradient(45deg, #90a4ae, #607d8b, #b0bec5);
+}
+.card.rainy-bg {
+  background-image: linear-gradient(45deg, #0288d1, #03a9f4, #4fc3f7);
+}
+.card.stormy-bg {
+  /* Grigio scuro per temporale diurno */
+  background-image: linear-gradient(45deg, #424242, #616161, #9e9e9e);
+}
+.card.foggy-bg {
+  background-image: linear-gradient(45deg, #bdbdbd, #9e9e9e, #cfd8dc);
+}
+/* Neve Giorno (sfondo chiaro, testo scuro - OVERRIDE) */
+.card.snowy-bg {
+  background-image: linear-gradient(45deg, #e0e0e0, #fafafa, #ffffff);
+  color: #333; /* Testo scuro */
+}
+.card.snowy-bg .title { color: #212121; }
+.card.snowy-bg .label, .card.snowy-bg .desc { color: #424242; }
+.card.snowy-bg .icon.bg-accent {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #0d47a1;
+}
+
+
+/* --- GRADIENTI NOTTURNI --- */
+
+.card.night-clear-bg {
+  background-image: linear-gradient(45deg, #0d47a1, #1a237e, #4a148c);
+}
+.card.night-cloudy-bg {
+  background-image: linear-gradient(45deg, #263238, #37474f, #191970);
+}
+.card.night-rainy-bg {
+  /* Blu scuro e grigio per pioggia notturna */
+  background-image: linear-gradient(45deg, #0d47a1, #263238, #37474f);
+}
+.card.night-stormy-bg {
+  /* Nero, viola scuro e blu notte per temporale notturno */
+  background-image: linear-gradient(45deg, #1a237e, #212121, #000000);
+}
+.card.night-foggy-bg {
+  /* Grigi molto scuri e bluastri per nebbia notturna */
+  background-image: linear-gradient(45deg, #37474f, #263238, #455a64);
+}
+.card.night-snowy-bg {
+  /* Blu scuro e grigi per neve notturna (testo chiaro) */
+  background-image: linear-gradient(45deg, #1a237e, #263238, #607d8b);
 }
