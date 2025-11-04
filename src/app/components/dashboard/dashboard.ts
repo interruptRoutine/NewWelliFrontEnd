@@ -16,7 +16,6 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-dashboard',
   imports: [
-    RouterLink,
     CommonModule,
     Meteo,
     MoodComponent
