@@ -39,7 +39,8 @@ export class UiConfig implements OnInit {
     gender: 'OTHER',
     dob: '',
     city: '',
-    avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBZJXYbCFVdGrWmuNikFBCcBh_cG9IRWbM5hWiMe_NWlooM_sPfVogA_ugHJucELuFK933OJ_M1_5K7Bsq5RnrP1c8x5jwi3J9Bcm1su9WX10-Jy75O5uGkoFNudHvqA1X2sVKtmLbgfUAyPPtfPhxu7YG-w3_lI_1M5nuGsn6sKvvIsx6rmbDiW01iVkGlDhe9ccmeJGm1xJmI3xxW2M7x5q7nRoTAklWNWc2zF9SoJsxe3ZN8hzsBEI0RWc-1lgfKjhgTqY4ujjA'
+    avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBZJXYbCFVdGrWmuNikFBCcBh_cG9IRWbM5hWiMe_NWlooM_sPfVogA_ugHJucELuFK933OJ_M1_5K7Bsq5RnrP1c8x5jwi3J9Bcm1su9WX10-Jy75O5uGkoFNudHvqA1X2sVKtmLbgfUAyPPtfPhxu7YG-w3_lI_1M5nuGsn6sKvvIsx6rmbDiW01iVkGlDhe9ccmeJGm1xJmI3xxW2M7x5q7nRoTAklWNWc2zF9SoJsxe3ZN8hzsBEI0RWc-1lgfKjhgTqY4ujjA',
+    firstDailyAccess: true
   };
 
   profileImageUrl: string | ArrayBuffer | null = null;

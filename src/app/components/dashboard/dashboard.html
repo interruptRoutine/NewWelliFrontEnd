@@ -52,6 +52,14 @@
     </nav>
   </aside>
 
+  <div class="mood-modal-overlay" *ngIf="showMoodModal">
+
+    <app-mood (moodSubmitted)="onMoodSubmitted()"></app-mood>
+
+  </div>
+  <div class="dashboard-container">
+  </div>
+
   <main id="ili9g" class="content">
     <header id="i32ff" class="page-header">
       <div>

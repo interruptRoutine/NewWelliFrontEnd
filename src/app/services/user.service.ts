@@ -10,6 +10,7 @@ export interface UserDto {
   dob: string; // (yyyy-MM-dd)
   city: string;
   avatarUrl: string;
+  firstDailyAccess: boolean;
 }
 
 export interface UserPutDto {

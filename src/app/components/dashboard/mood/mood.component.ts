@@ -1,45 +1,54 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MoodService } from './mood.service';
-import { MoodResponseDTO } from './mood.types';
 
 @Component({
   selector: 'app-mood',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule],
   templateUrl: './mood.component.html',
-  styleUrls: ['./mood.component.css']
+  styleUrls: ['./mood.component.css'] // Linka il CSS
 })
 export class MoodComponent {
-  private fb = inject(FormBuilder);
-  private svc = inject(MoodService);
+  @Output() moodSubmitted = new EventEmitter<void>();
 
-  loading = false;
-  error: string | null = null;
-  result: MoodResponseDTO | null = null;
+  selectedMood: string = '';
+  isSubmitting: boolean = false;
+  submitError: string = '';
 
-  form = this.fb.group({
-    moodText: ['', [Validators.required, Validators.maxLength(500)]]
-  });
+  moods = [
+    { value: 'FELICE', icon: '😄' },
+    { value: 'SERENO', icon: '😌' },
+    { value: 'NEUTRALE', icon: '😐' },
+    { value: 'TRISTE', icon: '😔' },
+    { value: 'ARRABBIATO', icon: '😠' }
+  ];
 
-  submit(): void {
-    this.error = null; this.result = null;
-    if (this.form.invalid) return;
-    this.loading = true;
-    this.svc.setMood({ moodText: this.form.value.moodText! }).subscribe({
-      next: res => { this.result = res; this.loading = false; },
-      error: err => { this.error = err?.error?.message || 'Errore'; this.loading = false; }
-    });
+  constructor(private moodService: MoodService) {}
+
+  selectMood(mood: string): void {
+    if (this.isSubmitting) return;
+    this.selectedMood = mood;
+    this.submitError = '';
   }
 
-  loadToday(): void {
-    this.error = null; this.result = null; this.loading = true;
-    this.svc.getToday().subscribe({
-      next: res => { this.result = res; this.loading = false; },
-      error: err => {
-        this.error = err?.status === 204 ? 'Nessun mood per oggi' : (err?.error?.message || 'Errore');
-        this.loading = false;
+  submitMood(): void {
+    if (!this.selectedMood || this.isSubmitting) {
+      return;
+    }
+
+    this.isSubmitting = true;
+    this.submitError = '';
+
+    this.moodService.setMood({ mood: this.selectedMood }).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+        this.moodSubmitted.emit();
+      },
+      error: (err) => {
+        console.error("Errore nell'invio del mood: ", err);
+        this.isSubmitting = false;
+        this.submitError = 'Errore nel salvataggio. Riprova.';
       }
     });
   }

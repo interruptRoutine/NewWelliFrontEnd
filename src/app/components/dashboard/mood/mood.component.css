@@ -1,0 +1,101 @@
+/* Stile per il box bianco del modal */
+.mood-content-box {
+  background-color: #fff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
+  color: #333;
+}
+
+.mood-content-box h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.mood-content-box p {
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.mood-options {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.mood-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid #ddd;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-width: 80px;
+}
+
+.mood-btn:hover:not(:disabled) {
+  border-color: #bbb;
+  background-color: #f0f0f0;
+}
+
+.mood-btn.selected {
+  border-color: #007bff; /* Colore primario per la selezione */
+  background-color: #e6f2ff;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.mood-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.mood-btn .mood-icon {
+  font-size: 2.5rem;
+}
+
+/* Stile per il pulsante Invia (Conferma) */
+.submit-mood-btn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-mood-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* Stile per il pulsante disabilitato (requisito) */
+.submit-mood-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.mood-error {
+  color: #D32F2F;
+  font-size: 0.9rem;
+  margin-top: -1.5rem;
+  margin-bottom: 1rem;
+}

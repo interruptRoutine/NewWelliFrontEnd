@@ -8,6 +8,7 @@ import {UserDto, UserService} from '../../services/user.service';
 import {GeminiService, HoroscopeResponse} from '../../services/gemini.service';
 import {WidgetSettings, WidgetSettingsService} from '../../services/widget-settings.service';
 import {Subscription} from 'rxjs';
+import { MoodComponent } from './mood/mood.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,7 @@ import {Subscription} from 'rxjs';
     RouterLink,
     CommonModule,
     Meteo,
+    MoodComponent
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
@@ -41,6 +43,8 @@ export class Dashboard implements OnInit, OnDestroy
 
   playlistId: string = '37i9dQZF1DXcBWIGoYBM5M';
 
+  showMoodModal: boolean = false;
+
   constructor(
     private router: Router,
     private eventDataService: EventDataService,
@@ -59,7 +63,7 @@ export class Dashboard implements OnInit, OnDestroy
 
   ngOnInit(): void {
     this.loadTodayEvents();
-    this.loadUserName();
+    this.loadUserData();
     this.loadHoroscope();
 
     this.settingsSub = this.widgetSettingsService.settings$.subscribe(settings => {
@@ -94,17 +98,23 @@ export class Dashboard implements OnInit, OnDestroy
     this.isChatOpen = false;
   }
 
-  loadUserName(): void {
-    this.userService.getUserInfo().subscribe({
+  loadUserData(): void {
+    this.userService.getUserInfo().subscribe({ //
       next: (user: UserDto) => {
         if (user && user.name) {
           this.userName = user.name;
         }
+        this.showMoodModal = user.firstDailyAccess;
       },
       error: (err) => {
         console.error("Errore nel caricare le informazioni utente: ", err);
+        this.showMoodModal = false;
       }
     });
+  }
+
+  onMoodSubmitted(): void {
+    this.showMoodModal = false;
   }
 
   loadTodayEvents(): void {
