@@ -90,6 +90,7 @@
   font-size: 2em;
   font-weight: 600;
   color: #333; /* Testo scuro */
+  text-transform: capitalize;
 }
 
 /* Bottoni (Oggi, Mese, Settimana...) */
@@ -154,7 +155,7 @@
 
 /* Opzionale: Rimuove il bordo che li univa prima */
 :host ::ng-deep .fc .fc-button-group > .fc-button {
-  margin: 0 !important; /* Rimuove margini aggiunti da FullCalendar */
+  margin: 2px !important; /* Rimuove margini aggiunti da FullCalendar */
 }
 
 :host ::ng-deep .fc .fc-daygrid-day.fc-day-today {
@@ -172,3 +173,5 @@
   color: #ff8c66 !important; /* Colore corallo per il numero 'oggi' */
   border: 1px solid rgba(255, 140, 102, 0.5) !important; /* Bordo corallo tenue */
 }
+
+
